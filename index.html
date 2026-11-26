@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#19151e">
+<meta name="description" content="A little home, a lot of love. An isometric adventure for our two whole years together.">
+<title>Our Little World · 2 years of us</title>
+<style>
+/* Everything is local and dependency-free. Change these tokens to recolor the UI. */
+:root{--bg:#19151e;--panel:#29212d;--cream:#f3e5ec;--muted:#b29daa;--gold:#dba7be;--sage:#ccb0ca;--line:rgba(242,213,234,.12)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--cream);font:14px/1.6 'Segoe UI',sans-serif}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:4px}button:disabled{opacity:.45;cursor:default}button{transition:background .2s,transform .2s}button:hover:not(:disabled){background:rgba(218,179,123,.15)}
+.app{max-width:1600px;margin:auto;padding:36px 44px 24px}.masthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.brand{display:flex;gap:14px;align-items:center}.brand-mark{font:30px Georgia;color:var(--gold);border:1px solid var(--line);border-radius:50%;width:48px;height:48px;text-align:center;line-height:46px}.eyebrow{text-transform:uppercase;letter-spacing:2.6px;font-size:10px;color:var(--gold);font-weight:600}h1,h2,h3,p{margin:0}h1{font:29px Georgia,serif;letter-spacing:-.6px}.date-pill{border:1px solid var(--line);border-radius:30px;padding:8px 16px;color:var(--sage);font-size:12px}.date-pill span{color:var(--gold);margin-right:7px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:24px}.world{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at 48% 46%,#352936 0%,#251f2d 43%,#211c27 76%);min-height:660px}.world-top{position:absolute;top:24px;left:26px;right:26px;display:flex;justify-content:space-between;align-items:center;z-index:2;pointer-events:none}.room-tag{display:flex;gap:10px;align-items:center;color:#e3cbdc;font-size:12px}.room-tag i{width:7px;height:7px;border-radius:50%;background:#d5adc7;box-shadow:0 0 14px #d5adc788}.view-tag{color:#aa91a5;letter-spacing:2px;font-size:9px}#game{width:100%;height:100%;position:absolute;inset:0;touch-action:none;outline:none}.world-caption{position:absolute;top:75px;left:26px;pointer-events:none}h2{font:italic 27px Georgia;color:#ead2e2}.world-caption p{color:#b9a2b6;font-size:12px;margin-top:6px}.interaction-hint{position:absolute;bottom:27px;left:50%;transform:translateX(-50%);border:1px solid #e4ce9a29;background:#241e2be8;padding:10px 19px;border-radius:30px;color:#ddc4d7;font-size:12px;white-space:nowrap;box-shadow:0 8px 30px #0002}.key{display:inline-flex;min-width:24px;height:24px;padding:0 6px;border:1px solid #ffffff25;border-bottom-width:3px;border-radius:5px;align-items:center;justify-content:center;font:11px 'Segoe UI';color:#e8dfcb;background:#ffffff07}.world-number{position:absolute;bottom:29px;right:24px;color:#b198af;font:italic 17px Georgia}
+.dashboard{min-width:0;display:flex;flex-direction:column;gap:16px}.card{border:1px solid var(--line);background:linear-gradient(120deg,#3e2c3d99,#2c2232bb);backdrop-filter:blur(10px);border-radius:16px;padding:23px}.love-card{position:relative;overflow:hidden;padding:26px 23px 23px}.love-card:after{content:'♡';position:absolute;right:15px;top:17px;font:100px Georgia;color:#e4bb7d0b;transform:rotate(-15deg);pointer-events:none}.love-card h2{font:35px Georgia;margin-top:12px;color:var(--cream)}.love-card p{font-size:12px;color:var(--muted);margin-top:13px;max-width:250px}.tiny-divider{height:1px;background:var(--line);margin:20px 0 14px}.love-note{font:italic 15px Georgia;color:#d5bfd0}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.section-title h3{font-size:10px;text-transform:uppercase;letter-spacing:1.8px;font-weight:600;color:#ddc5d7}.section-title>span{font-size:10px;color:#ac93a5}.music-row{display:flex;align-items:center;gap:13px}.record{width:53px;height:53px;flex-shrink:0;border-radius:50%;background:repeating-radial-gradient(circle,#171b17 0 2px,#30362c 3px 4px);display:grid;place-items:center;box-shadow:0 0 0 1px #ffffff0c}.record:after{content:'♥';display:grid;place-items:center;font-size:10px;background:#b79467;width:20px;height:20px;border-radius:50%;color:#2b2c23}.playing .record{animation:spin 6s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.music-info{min-width:0;flex:1}.music-info strong{font-weight:500;font-size:13px}.music-info p{font-size:11px;color:var(--muted)}.bars{display:flex;align-items:center;gap:3px;height:23px}.bars i{background:var(--sage);width:3px;height:5px;border-radius:2px}.playing .bars i{animation:equalize .8s alternate infinite}.playing .bars i:nth-child(2){animation-delay:-.3s}.playing .bars i:nth-child(3){animation-delay:-.6s}.playing .bars i:nth-child(4){animation-delay:-.15s}@keyframes equalize{to{height:22px}}.music-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);margin-top:16px;padding-top:12px;color:var(--muted);font-size:11px}.icon-btn{border:1px solid var(--line);background:transparent;border-radius:50%;width:30px;height:30px;line-height:1}.volume{accent-color:var(--sage);width:70px;height:3px}.controls-row{display:flex;justify-content:space-between;align-items:center;margin:12px 0;font-size:12px;color:#cfb8c9}.key-group{display:flex;gap:4px}.controls-foot{font-size:10px;color:#ab91a5;margin-top:17px;padding-top:12px;border-top:1px solid var(--line)}.memory-button{width:100%;border:1px solid #c7ac7833;border-radius:12px;background:#b99a5d0b;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;color:#e3bfd4;font-size:12px}.memory-button small{color:#b197ad;font-size:10px}.footer{display:flex;justify-content:space-between;color:#a38a9d;font-size:11px;margin-top:22px}.footer em{font-family:Georgia;color:#c5aabd}.footer span:last-child{color:#cba8bc}.touch-controls{position:absolute;left:18px;bottom:75px;display:none;grid-template-columns:repeat(3,38px);gap:4px}.touch-controls button{border:1px solid var(--line);border-radius:8px;background:#2b2030d9;height:38px}.touch-controls button:first-child{grid-column:2}.touch-controls button:nth-child(2){grid-column:1}.touch-controls button:last-child{grid-column:2;width:80px}.overlay{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:24px;background:#140e1bd4;backdrop-filter:blur(9px)}.overlay[hidden]{display:none}.modal{position:relative;width:min(480px,100%);padding:34px;border:1px solid #d9c99d33;border-radius:22px;background:linear-gradient(145deg,#423145,#2c2332);box-shadow:0 28px 100px #0006}.modal-icon{font-size:30px;color:var(--gold);margin-bottom:15px}.modal h2{font:30px Georgia;margin:10px 0 17px}.modal p{color:#d2bdcf;min-height:64px;line-height:1.9}.modal img{max-width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin-bottom:15px}.modal-close{position:absolute;right:15px;top:15px;background:transparent;border:0;font-size:24px;color:var(--muted)}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:25px}.action{border:1px solid #e2c38b44;border-radius:8px;padding:10px 17px;background:#d6aac3;color:#302335}.action.secondary{background:transparent;color:#d2bdcf}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#3f2b42;border:1px solid #d9c99d44;padding:12px 20px;border-radius:12px;z-index:30;max-width:90vw;color:#eed9e8;font-size:12px}.toast[hidden]{display:none}
+@media(min-width:1450px){.world{min-height:740px}.app{padding-top:45px}}@media(max-width:1050px){.app{padding:24px}.layout{grid-template-columns:minmax(0,1fr) 290px;gap:16px}.card{padding:18px}.world{min-height:650px}.view-tag{display:none}}@media(max-width:760px){.app{padding:20px 14px}.masthead{margin-bottom:20px}h1{font-size:23px}.date-pill{font-size:10px;padding:6px 10px}.brand-mark{display:none}.layout{grid-template-columns:minmax(0,1fr)}.world{min-height:520px}.dashboard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.love-card{grid-column:1/-1}.love-card h2{font-size:30px}.love-card p{max-width:none}.controls-card{padding:17px 12px}.controls-row{font-size:10px;gap:6px;flex-wrap:wrap}.key{min-width:20px;padding:0 4px}.memory-button{grid-column:1/-1}.footer{font-size:9px}.world-caption h2{font-size:23px}.touch-controls{display:grid}.world-number{display:none}.interaction-hint{font-size:10px;bottom:22px;max-width:95%;white-space:normal;text-align:center}.card.music-card{min-width:0;padding:17px 12px}.music-bottom{gap:5px;flex-wrap:wrap}.record{width:38px;height:38px}.music-row{gap:8px}.music-info strong{font-size:11px}.bars{display:none}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Activity shell shares the memory dialog and owns viewport scrolling. */
+.modal{max-height:calc(100dvh - 48px);overflow:auto;overscroll-behavior:contain}
+.modal.activity{width:min(820px,100%);padding:28px;display:flex;flex-direction:column;overflow:hidden}
+.activity #modal-icon,.activity #modal-image,.activity #modal-text{display:none}
+.activity h2{margin:8px 36px 18px 0}.activity .modal-actions{margin-top:18px;flex-shrink:0}
+#activity-body{min-height:0;overflow:auto;overscroll-behavior:contain;padding:2px}
+.wardrobe-layout{display:grid;grid-template-columns:minmax(190px,.9fr) minmax(230px,1.1fr);gap:22px}
+.wardrobe-preview{background:radial-gradient(ellipse at 50% 35%,#72536744,#211b2988);border:1px solid var(--line);border-radius:16px;text-align:center;padding:16px}
+.wardrobe-preview canvas{display:block;width:100%;height:255px;object-fit:contain}.wardrobe-preview p{min-height:0;line-height:1.6;font-size:12px}
+.wardrobe-preview strong{display:block;color:var(--cream);font:21px Georgia;margin-bottom:8px}
+.wardrobe-items{border:0;min-width:0;padding:0}.wardrobe-items legend{font-size:12px;color:var(--muted);margin-bottom:10px}
+.garment-card{position:relative;display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:9px;cursor:pointer;min-height:72px;background:#211c2822}
+.garment-card:has(input:checked){border-color:#ecc6df;background:#cfa3c51a;box-shadow:inset 0 0 0 1px #ecc6df55}.garment-card:focus-within{outline:2px solid #f2d19d;outline-offset:3px}
+.garment-card input{accent-color:#d4aac9;width:18px;height:18px;flex-shrink:0}.garment-card canvas,.garment-card img{width:38px;height:52px;object-fit:contain;margin:0;border-radius:4px}
+.garment-card strong{font-size:13px;font-weight:500}.garment-card small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.swatches{display:flex;gap:4px;margin-top:6px}.swatches i{display:block;width:15px;height:5px;border-radius:4px;border:1px solid #ffffff22}
+.modal .wardrobe-current{min-height:0;font-size:12px;color:#dbc4d6;margin-bottom:15px}.wardrobe-help{font-size:11px;color:var(--muted);margin-top:10px}
+button:focus-visible,input:focus-visible{outline:2px solid #f2d19d;outline-offset:3px}
+@media(max-width:560px){.overlay{padding:10px}.modal{padding:25px;max-height:calc(100dvh - 20px)}.modal.activity{padding:20px 16px}.activity h2{font-size:27px}.wardrobe-layout{grid-template-columns:minmax(0,1fr);gap:15px}.wardrobe-preview{padding:12px}.wardrobe-preview canvas{height:185px}.activity .modal-actions{margin-top:12px}.activity .modal-actions button{flex:1;min-height:44px}.garment-card{min-height:76px}.modal-close{min-width:36px;min-height:36px}}
+
+/* Drawing controls stay in the shared activity shell; only the paper owns touch. */
+.drawing-toolbar,.drawing-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.drawing-toolbar fieldset,.drawing-row fieldset{border:0;padding:0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;min-width:0}
+.drawing-toolbar legend,.drawing-row legend{font-size:11px;color:var(--muted);margin-bottom:6px}
+.draw-choice{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:9px;padding:7px 10px;min-height:40px;cursor:pointer;font-size:12px}
+.draw-choice:has(input:checked){border-color:#ecc6df;background:#d3abc31a}.draw-choice:focus-within{outline:2px solid #f2d19d;outline-offset:2px}.draw-choice input{accent-color:#d4aac9;margin:0}
+.draw-color{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--ink);border:1px solid #ffffff55}
+.drawing-row .action{font-size:12px;padding:8px 12px;min-height:40px}
+.draw-width{display:flex;align-items:center;gap:8px;font-size:12px;color:#d2bdcf}.draw-width input{width:100px;accent-color:#d4aac9}
+.drawing-paper{padding:7px;border:1px solid #c9bbce;border-radius:10px;background:#a9a4b1;margin:4px 0 10px}
+#drawing-canvas{display:block;width:100%;height:auto;background:#f5f0ee;touch-action:none;cursor:crosshair;border-radius:3px;outline-offset:3px}
+#drawing-canvas:focus-visible{outline:2px solid #f2d19d}.modal .drawing-status,.modal .drawing-help{min-height:0;font-size:12px;line-height:1.6;color:#cdb9cc;margin:8px 0}
+.modal .drawing-help{font-size:11px;color:var(--muted)}
+@media(max-width:560px){.drawing-toolbar,.drawing-row{gap:8px;margin-bottom:12px}.draw-choice{min-height:44px;padding:7px 9px}.drawing-row .action{min-height:44px}.draw-width{width:100%;justify-content:space-between}.draw-width input{width:140px}.drawing-paper{padding:5px}}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="masthead"><div class="brand"><div class="brand-mark">⌂</div><div><div class="eyebrow">A place that's only ours</div><h1>Our little world.</h1></div></div><div class="date-pill"><span>♡</span> 2 years of us</div></header>
+ <main class="layout">
+  <section class="world" aria-label="Isometric apartment game">
+   <div class="world-top"><div class="room-tag"><i></i><span id="room-label">The bedroom</span></div><div class="view-tag">A LITTLE SPACE · AN ENDLESS LOVE</div></div>
+   <div class="world-caption"><h2 id="room-heading">Where ordinary becomes ours.</h2><p id="room-subtitle">Take your time. There’s a little love in every corner.</p></div>
+   <canvas id="game" tabindex="0" aria-label="Use arrow keys or WASD to move. E or Space to interact. Bedroom map."></canvas>
+   <div class="touch-controls" aria-label="Touch movement"><button data-move="up" aria-label="Move up">↑</button><button data-move="left" aria-label="Move left">←</button><button data-move="down" aria-label="Move down">↓</button><button data-move="right" aria-label="Move right">→</button><button id="touch-interact">E · interact</button></div>
+   <div class="interaction-hint" id="hint"><span class="key">E</span> Get out of bed · your little world is waiting</div><div class="world-number" id="room-number">01 / 02</div>
+  </section>
+  <aside class="dashboard" aria-label="Game dashboard">
+   <section class="card love-card"><div class="eyebrow">Our second anniversary</div><h2>Two whole years.<br>And a lifetime to go.</h2><p>24 months of little moments, and a tiny home filled with reminders of my favorite person. Explore, get cozy, and celebrate with me.</p><div class="tiny-divider"></div><div class="love-note">"Home is where we make it, yes, but I choose to make it here, today, and everyday.”</div></section>
+   <section class="card music-card" id="music-card"><div class="section-title"><h3>Our soundtrack</h3><span>ON VINYL</span></div><div class="music-row"><div class="record"></div><div class="music-info"><strong id="track-title">A quiet little moment</strong><p id="track-status" role="status">Find the record player to begin</p></div><div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div></div><div class="music-bottom"><span id="track-count">5 songs · endless memories</span><label aria-label="Music volume">♫ <input class="volume" id="volume" type="range" min="0" max="1" step=".05" value=".45" aria-label="Volume"></label><button class="icon-btn" id="pause-music" aria-label="Pause or resume music" disabled>▶</button></div></section>
+   <section class="card controls-card"><div class="section-title"><h3>Make yourself at home</h3><span>HOW TO PLAY</span></div><div class="controls-row"><span>Wander around</span><div class="key-group"><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span></div></div><div class="controls-row"><span>Or use the arrows</span><div class="key-group"><span class="key">↑</span><span class="key">←</span><span class="key">↓</span><span class="key">→</span></div></div><div class="controls-row"><span>Discover / interact</span><div class="key-group"><span class="key">E</span><span class="key">SPACE</span></div></div><div class="controls-row"><span>Close a memory</span><span class="key">ESC</span></div><p class="controls-foot">Walk close to something. Every corner has a story.</p></section>
+   <button class="memory-button" id="open-letter"><span>♡ &nbsp; A two-year love letter</span><small>OPEN ↗</small></button>
+  </aside>
+ </main>
+ <footer class="footer"><em>Made with love, for my favorite human.</em><span>Two years. Just us. Always. &nbsp; ♡</span></footer>
+</div>
+<div class="overlay" id="overlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" id="close-modal" aria-label="Close dialog">×</button><div class="modal-icon" id="modal-icon">♡</div><div class="eyebrow" id="modal-kicker">A little memory</div><h2 id="modal-title"></h2><img id="modal-image" alt="A special memory" hidden><p id="modal-text"></p><div id="activity-body" hidden></div><div class="modal-actions" id="modal-actions"></div></section></div>
+<div class="toast" id="toast" role="status" hidden></div>
+<script>
+'use strict';
+/* ======================================================================
+   1. EDIT YOUR WORLD HERE
+   Strings are quoted; numeric 0/1/2/3 keep their meaning from the legend.
+   Keep map rows rectangular: the bedroom is 8 columns × 9 rows and the
+   living room is 10 columns × 11 rows. Objects use repeated string tokens.
+   B = bookshelf, Bed = bed, C = closet, 3 = corridor (never overloaded).
+   Optional "Spawn" overrides the default start on the first Bed tile.
+   ====================================================================== */
+const BEDROOM_MAP = [
+ [1,'B','B','B',2,2,2,2],
+ ['M',0,0,0,0,0,0,'L'],
+ ['M',0,0,0,0,0,0,'L'],
+ ['WhiteTable',0,0,'Bed','Bed','Bed','Bed','Bed'],
+ ['WhiteTable',0,0,'Bed','Bed','Bed','Bed','Bed'],
+ ['WhiteTable',0,0,'Bed','Bed','Bed','Bed','Bed'],
+ [0,0,0,0,0,0,0,'D'],
+ [0,0,0,0,0,0,0,0],
+ ['Guitar','C','C','C','C',1,0,3]
+];
+const LIVING_ROOM_MAP = [
+ ['Balc','Balc',2,2,2,2,2,2,2,2],
+ [0,0,0,'Sofa-hd','Sofa-hd','Sofa-hd','Sofa-hd','Sofa-hd',0,0],
+ [0,0,0,0,0,0,0,0,0,'TV'],
+ ['Whiteboard',0,'Sofa-vr','BlackDesk',0,0,'Sofa-vr',0,0,'TV'],
+ ['Whiteboard',0,'Sofa-vr','BlackDesk',0,0,'Sofa-vr',0,0,'TV'],
+ ['Whiteboard',0,'Sofa-vr','BlackDesk',0,0,'Sofa-vr',0,0,'TV'],
+ [0,0,0,0,0,0,0,0,0,'Ct'],
+ [1,0,'K','K','K','K','K',0,0,0],
+ ['K-Sto',0,'K','K','K','K','K',0,0,0],
+ ['K-Sto',0,0,0,0,0,0,0,0,3],
+ [1,'K-Si','K-Si',1,'F','F',1,'FD',0,'CornerTable']
+];
+/* AUDIO: put the eight MP3 files and tv.mp4 alongside this HTML, or change AUDIO_DIR
+   to e.g. './assets/audio/'. No assets are downloaded automatically. */
+const AUDIO_DIR = './';
+const TRACK_PATHS = ['track1.mp3','track2.mp3','track3.mp3','track4.mp3','track5.mp3'];
+const TRACK_TITLES = ['Our first, ever, song','Cole World','FOMO!','My Promise to you','The College Dropout'];
+const STEP_SPEED = 2.65; // Grid cells per second; diagonal speed is normalized.
+// Optional facing overrides: u/d are -/+ grid Y, l/r are -/+ grid X.
+// Explicit settings below preserve the approved appearance after correcting
+// the old left/right naming mismatch. Unlisted props face the room center.
+const FURNITURE_FACING = {
+ bedroom:{L:'l',Bed:'l',M:'r',D:'r',WhiteTable:'r',Guitar:'d'},
+ living:{'Sofa-vr':'r','K-Sto':'l',TV:'l',R:'r',Ct:'r',BlackDesk:'r',Whiteboard:'r',CornerTable:'u'}
+};
+const INSPECT = new URLSearchParams(location.search).get('inspect')==='1';
+const INSPECT_FRIDGE_PROGRESS = INSPECT?new URLSearchParams(location.search).get('fridge'):null;
+const INSPECT_BALCONY_SLIDE = INSPECT?new URLSearchParams(location.search).get('slide'):null;
+const SHOW_GUIDES = INSPECT&&new URLSearchParams(location.search).get('guides')!=='0';
+const FIT = {frame:.06,gap:.025,arm:.15,back:.16,panelDepth:.003};
+// Heights in art units (32 = one vertical grid unit). Keep low cutaway walls
+// for visibility; full walls are two vertical grid units tall in total.
+const ROOM_HEIGHT = {wall:64,cutaway:8,cap:3};
+const TV_MEDIA = {src:'./tv.mp4',loop:true};
+const SNACK = {src:'./eat.mp3',doorSpeed:3,duration:2.5,maxDuration:60};
+const SWEATERS = [
+ {id:'brown',name:'Brown hoodie',body:'#805b43',sleeves:'#805b43',hood:'#805b43',panel:'#b64545'},
+ {id:'gray',name:'Gray hoodie',body:'#8d8b94',sleeves:'#8d8b94',hood:'#8d8b94',text:'LOVE'}, // Editable white wording.
+ {id:'maroon',name:'Maroon varsity hoodie',body:'#782e49',sleeves:'#aaa6b0',hood:'#aaa6b0'}
+];
+// Named scrapbook instances. Move the representative tile with map edits;
+// keep the ID. Identity is never a furniture array index or coordinate string.
+const OBJECT_INSTANCES = [
+ {id:'bedroom.closet.main',room:'bedroom',token:'C',tile:[1,8],activity:'wardrobe'},
+ {id:'bedroom.desk.main',room:'bedroom',token:'L',tile:[7,1]},
+ {id:'living.whiteboard.main',room:'living',token:'Whiteboard',tile:[0,3],activity:'drawing'}
+];
+// Blank owner-authored starters; normalized strokes may be authored here later.
+// Never mutate these definitions during play. Width is a fraction of board height.
+const BOARD_STARTERS=Object.freeze({front:Object.freeze([]),back:Object.freeze([])});
+const BOARD_SETTINGS=Object.freeze({worldWidth:512,previewMaxWidth:1536,maxOperations:160,maxPoints:8000,maxStrokePoints:800,history:24});
+const BOARD_COLORS=[{name:'Rose',color:'#a94468'},{name:'Lavender',color:'#7963ae'},{name:'Blue',color:'#416a98'},{name:'Sage',color:'#4f7e68'},{name:'Ink',color:'#383544'}];
+const TV_MODEL = {base:15,height:45}; // Art units; console and record player stay at their existing heights.
+const BALCONY_DOOR = {sill:1.5,headGap:8,rail:.065,speed:2.4}; // Full travel per second.
+if(INSPECT)window.addEventListener('error',e=>{document.documentElement.dataset.renderError=e.message});
+// One 90° counterclockwise orbit of the apartment, before isometric projection.
+// Map coordinates stay unchanged so your layouts, portals and collisions persist.
+function cameraPoint(x,y){return{x:y,y:map()[0].length-1-x}}
+function cameraDepth(x,y){const p=cameraPoint(x,y);return p.x+p.y}
+const ROOM_LIGHTING = {ambient:.67,treeRadius:9,treeStrength:.58,lampRadius:3.6,lampStrength:.32,stoveRadius:5,stoveStrength:.32,fadeSpeed:3};
+const BEDROOM_ART = {
+ ivory:['#fff4df','#c6b19b','#e6d4bb'], wall:['#e3d6c7','#af9f94','#d5c3b7'],
+ floor:['#bc8553','#ce995f','#d7a675','#c19265','#dda972'], ambient:.83,
+ quilt:['#a83f49','#6d2936','#87323e'], throw:['#805447','#533731','#69433a']
+};
+const DECORATIVE_FURNITURE = new Set(['BlackDesk','WhiteTable','CornerTable','Whiteboard','KitchenRun']);
+const KITCHEN_HEIGHT = 24; // Shared worktop; the stove burners and sink stay attached.
+const SKIN_COLORS = ['#e9b590','#bf89cf','#8fc6a1','#7fbfda','#e4be60','#ec96ac'];
+/* MEMORY DICTIONARY: replace text and image URLs here. Relative images work
+   offline too. A blank image hides the photo area. Sofa variants share Sofa. */
+const interactionData = {
+ L:{title:'Look at you go.',icon:'⌨',text:'Your hard work, your big dreams, the way you never give up. I am so proud of the person you are becoming. Add a photo of her work to interactionData.L.image.',image:''},
+ M:{title:'A little touch of magic.',icon:'✧',text:'A touch of blush, a little sparkle… and a completely unpredictable makeover. You are my favorite in every color.',action:'Try a new look'},
+ D:{title:'The little things.',icon:'✉',text:'If I could keep every goodnight, every sleepy smile, every tiny moment with you in this drawer, it would never close.'},
+ B:{title:'Our next chapter.',icon:'▤',text:'Two whole years of stories. Some big, some beautifully ordinary. My favorite part? There are so many chapters still to write with you.'},
+ Bed:{title:'Stay a little longer.',icon:'☾',text:'The world can wait. Rest your head, let the day go, and know that you are loved. Even in your dreams.',action:'Curl up & sleep'},
+ C:{title:'Borrow my favorite sweater.',icon:'♧',text:'It is probably a little too big. It probably smells like me. And somehow it always looks better on you.'},
+ Guitar:{title:'An acoustic moment.',icon:'♫',text:'A little music for this corner of home.',action:'Play a strum'},
+ R:{title:'The soundtrack of us.',icon:'♫',text:'Some songs are more than songs. They are a time, a place, a feeling. Let’s put on a record and make another memory.',action:'Put a record on'},
+ FD:{title:'Wherever we go next.',icon:'♡',text:'There is a whole world outside this little home. And of all the places I could go, I would still choose wherever you are.',action:'Step into our next chapter'},
+ Balc:{title:'A little evening air.',icon:'❧',text:'Cool air, a quiet sky, and you next to me. Some of the best moments never needed a plan.',action:'Open the balcony'},
+ Sofa:{title:'Our favorite kind of plans.',icon:'☁',text:'No reservations. No rush. Just you, me, and a comfortable place to do absolutely nothing together.',action:'Take a seat'},
+ 'K-Sto':{title:'Something made with love.',icon:'♨',text:'A little warmth in the kitchen. Maybe we burn the toast. Maybe we make a masterpiece. Either way, I want to cook with you.',action:'Turn on the stove'},
+ 'K-Si':{title:'You wash, I’ll dry.',icon:'≈',text:'Even the chores feel softer with you beside me. Here is to a lifetime of sharing the little things.',action:'Turn on the water'},
+ Ct:{title:'You light up my world.',icon:'✶',text:'Every tiny light is a wish for us. More laughter, more adventures, and more holidays spent making a home together.',action:'Light the tree'},
+ F:{title:'A midnight snack?',icon:'❄',text:'There is always room for one more little treat. Especially if we share it, standing here in the kitchen at midnight.',action:'Open the fridge'},
+ K:{title:'Meet me in the kitchen.',icon:'☕',text:'Coffee in the morning. Stories in the evening. A thousand little conversations that turn a house into our home.'},
+ 3:{title:'Another little corner of home.',icon:'⌂',text:'Come with me. There is more of our little world to explore.',action:'Go to the other room'},
+ letter:{title:'My favorite human.',icon:'♡',text:'Happy second anniversary, my love. Two whole years, 24 months, and so many little moments that became our story. Thank you for making every day feel like one worth remembering. This tiny world is for you, but the real adventure is the life we are building together, and I will choose you in every version of it. Always.'}
+};
+/* ======================================================================
+   2. STATE & MAP HELPERS — gameplay uses grid coordinates; drawing alone
+   projects them into isometric screen coordinates. All props are solid.
+   ====================================================================== */
+const $ = id => document.getElementById(id);
+const canvas=$('game'), ctx=canvas.getContext('2d');
+const maps={bedroom:BEDROOM_MAP,living:LIVING_ROOM_MAP};
+let room='bedroom', lastPlayedTrack=null, currentTrack=null, musicPlaying=false;
+const APPEARANCE_DEFAULTS=Object.freeze({skin:SKIN_COLORS[0],outfitId:null});
+// One authority; pose and facing stay on player. Future cosmetics belong here.
+const appearance={...APPEARANCE_DEFAULTS};
+const boardSession=new Map(),boardTextures=new Map();
+const player={x:0,y:0,pose:'sleeping',anchor:null,returnPos:null,facing:1};
+const state={balcony:false,stove:false,sink:false,tree:false,lamp:false,fridge:false,ended:false};
+const keys=new Set(); let modalOpen=false, portalLock=false, lastTime=0, clockTime=0;
+let view={w:0,h:0,scale:1,ox:0,oy:0}, typeTimer, toastTimer;
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function map(){return maps[room]}
+function tile(x,y){return map()[y]?.[x]}
+function base(token){return typeof token==='string'&&token.startsWith('Sofa-')?'Sofa':token}
+// The TV stand hosts the record player; its full footprint opens the music memory.
+function interactionKey(token){return token==='TV'?'R':base(token)}
+function isFurnitureToken(token){return token!==3&&token!=='Balc'&&(DECORATIVE_FURNITURE.has(token)||Boolean(interactionData[interactionKey(token)]))}
+function findTile(grid,token){for(let y=0;y<grid.length;y++)for(let x=0;x<grid[y].length;x++)if(grid[y][x]===token)return{x,y};return null}
+function floorToken(t){return t===0||t===3||t==='Spawn'}
+function walkable(x,y){return floorToken(tile(x,y))}
+function freeNeighbor(p){return [{x:p.x-1,y:p.y},{x:p.x,y:p.y+1},{x:p.x+1,y:p.y},{x:p.x,y:p.y-1}].find(p=>walkable(p.x,p.y))}
+const PLAYER_RADIUS=.17;
+function playerFits(x,y){
+ // The chair reserves only its own outline within the existing floor cells.
+ if(room==='bedroom'&&bedroomChair){
+  const {x:left,y:back,w,d}=bedroomChair.collision;
+  if(x+PLAYER_RADIUS>left&&x-PLAYER_RADIUS<left+w&&y+PLAYER_RADIUS>back&&y-PLAYER_RADIUS<back+d)return false;
+ }
+ return [-PLAYER_RADIUS,PLAYER_RADIUS].every(a=>[-PLAYER_RADIUS,PLAYER_RADIUS].every(b=>
+  walkable(Math.floor(x+a+.5),Math.floor(y+b+.5))));
+}
+function atDesk(){return bedroomChair&&player.pose==='sitting'&&player.anchor===bedroomChair}
+function sitAtDesk(){
+ if(!bedroomChair||room!=='bedroom'||player.pose!=='standing'||!playerFits(player.x,player.y))return;
+ player.returnPos={x:player.x,y:player.y};player.anchor=bedroomChair;
+ Object.assign(player,bedroomChair.seat,{pose:'sitting',facing:1});
+ closeModal();updateHint();
+}
+function start(){
+ closePanel('restart',false);resetBoards();Object.assign(appearance,APPEARANCE_DEFAULTS);stopTV(false);cancelSnack();player.facing=1;
+ room='bedroom';state.ended=false;portalLock=false;keys.clear();
+ const spawn=findTile(map(),'Spawn'), bed=findTile(map(),'Bed');
+ const p=spawn||bed||findTile(map(),3);player.x=p.x;player.y=p.y;
+ player.pose=spawn||!bed?'standing':'sleeping';player.anchor=bed;player.returnPos=null;
+ updateRoom();resize();updateHint();
+}
+function updateRoom(){
+ const b=room==='bedroom';$('room-label').textContent=b?'The bedroom':'The living room';
+ $('room-heading').textContent=b?'Where ordinary becomes ours.':'A little room for more memories.';
+ $('room-subtitle').textContent=b?'Take your time. There’s a little love in every corner.':'Put a record on. Make yourself at home.';
+ $('room-number').textContent=b?'01 / 02':'02 / 02';canvas.setAttribute('aria-label',`Use arrows or WASD to move. E or Space to interact. ${b?'Bedroom':'Living room'} map.`);
+}
+function switchRoom(){
+ closePanel('room',false);cancelSnack();if(room==='living')pauseTV();
+ room=room==='bedroom'?'living':'bedroom';const p=findTile(map(),3)||findTile(map(),0);
+ player.x=p.x;player.y=p.y;player.pose='standing';player.anchor=null;player.returnPos=null;portalLock=true;keys.clear();updateRoom();resize();
+}
+function nearest(){
+ if(player.pose!=='standing')return null;
+ const px=Math.round(player.x),py=Math.round(player.y);
+ const nearby=[{x:px,y:py},{x:px,y:py-1},{x:px+1,y:py},{x:px,y:py+1},{x:px-1,y:py}]
+ // Use actual proximity so a large bed cannot mask the adjacent nightstand.
+ .map(p=>({...p,token:tile(p.x,p.y),instance:instanceAt(room,p.x,p.y)})).filter(p=>interactionData[interactionKey(p.token)]||p.instance?.activity==='drawing');
+ if(room==='bedroom'&&bedroomChair){
+  const {seat,instance}=bedroomChair;
+  if(Math.hypot(seat.x-player.x,seat.y-player.y)<=.90)nearby.push({...seat,token:'L',instance});
+ }
+ return nearby.sort((a,b)=>Math.hypot(a.x-player.x,a.y-player.y)-Math.hypot(b.x-player.x,b.y-player.y))[0];
+}
+function updateHint(){
+ const near=nearest();let text=player.pose==='sleeping'?'Get out of bed · your little world is waiting':player.pose==='sitting'?(atDesk()?'Get up from the desk':'Get up · there’s more to discover'):near?near.instance?.activity==='drawing'?'Draw a little together':`Discover · ${interactionData[interactionKey(near.token)].title}`:'Wander with WASD or arrow keys';
+ $('hint').replaceChildren();const k=document.createElement('span');k.className='key';k.textContent=near||player.pose!=='standing'?'E':'↔';$('hint').append(k,document.createTextNode('  '+text));
+}
+function getUp(){
+ const p=atDesk()?[player.returnPos,bedroomChair.exit].find(spot=>spot&&playerFits(spot.x,spot.y)):
+  player.returnPos||freeNeighbor(player.anchor||{x:Math.round(player.x),y:Math.round(player.y)});
+ if(!p){notify('No free tile beside this spot. Add a floor tile in the map.');return}
+ player.x=p.x;player.y=p.y;player.pose='standing';player.anchor=null;player.returnPos=null;updateHint();
+}
+function update(dt){
+ if(modalOpen||state.ended)return;
+ if(snack.phase!=='idle'){if(keys.size)cancelSnack();else return}
+ const up=keys.has('w')||keys.has('arrowup'),down=keys.has('s')||keys.has('arrowdown');
+ const left=keys.has('a')||keys.has('arrowleft'),right=keys.has('d')||keys.has('arrowright');
+ if(player.pose!=='standing'){if(up||down||left||right)getUp();return}
+ if(left!==right)player.facing=right?1:-1;
+ // Build screen-oriented camera movement, then undo the camera's rotation.
+ const cameraDX=(right?1:0)-(left?1:0)+(down?1:0)-(up?1:0);
+ const cameraDY=(left?1:0)-(right?1:0)+(down?1:0)-(up?1:0);
+ let dx=-cameraDY,dy=cameraDX;
+ const length=Math.hypot(dx,dy);if(length){dx=dx/length*STEP_SPEED*dt;dy=dy/length*STEP_SPEED*dt;
+ // Small body radius and separate axes prevent clipping and allow wall sliding.
+ if(playerFits(player.x+dx,player.y))player.x+=dx;if(playerFits(player.x,player.y+dy))player.y+=dy;
+ }
+ const onDoor=tile(Math.round(player.x),Math.round(player.y))===3;
+ if(!onDoor)portalLock=false;else if(!portalLock){switchRoom();return}
+ updateHint();
+}
+/* ======================================================================
+   3. AUDIO — Method A. Exclude the previous track BEFORE random selection.
+   `ended` selects another non-repeating track, including across room changes.
+   Errors remain visible; controls never pretend a missing MP3 is playing.
+   ====================================================================== */
+const music=new Audio(), wind=new Audio(AUDIO_DIR+'wind.mp3');wind.loop=true;wind.volume=.25;music.volume=.45;
+let musicRevision=0,musicRequest=0;
+const strum=new Audio(AUDIO_DIR+'strum.mp3');strum.volume=music.volume;strum.loop=false;let strumRequest=0;
+async function playStrum(){
+ const request=++strumRequest;
+ try{strum.pause();strum.currentTime=0;await strum.play()}
+ catch{if(request===strumRequest)notify('Guitar sound unavailable. Check strum.mp3 beside index.html and try again.')}
+}
+
+function syncMusic(){
+ $('music-card').classList.toggle('playing',musicPlaying);$('pause-music').textContent=musicPlaying?'Ⅱ':'▶';
+ $('pause-music').disabled=currentTrack===null;$('pause-music').setAttribute('aria-label',musicPlaying?'Pause music':'Resume music');
+ $('track-title').textContent=currentTrack===null?'A quiet little moment':TRACK_TITLES[currentTrack];
+ if(currentTrack!==null)$('track-count').textContent=`RECORD ${String(currentTrack+1).padStart(2,'0')} / 05`;
+}
+async function playMusic(fromTV=false){
+ if(!fromTV){musicRevision++;tvState.resumeMusic=false;pauseTV(false)}
+ const request=++musicRequest;
+ try{await music.play();if(request!==musicRequest)return;musicPlaying=!music.paused;$('track-status').textContent='Playing a little piece of us'}
+ catch{if(request!==musicRequest)return;musicPlaying=false;$('track-status').textContent='Add MP3 files beside index.html';notify('Music unavailable. Add track1.mp3–track5.mp3 beside this HTML, then try again.')}
+ syncMusic();
+}
+function newTrack(){
+ const choices=TRACK_PATHS.filter(path=>path!==lastPlayedTrack);
+ const selected=choices[Math.floor(Math.random()*choices.length)];
+ music.pause();musicPlaying=false;currentTrack=TRACK_PATHS.indexOf(selected);lastPlayedTrack=selected;
+ music.src=AUDIO_DIR+selected;syncMusic();playMusic();
+}
+function stopMusic(fromTV=false){if(!fromTV){musicRevision++;tvState.resumeMusic=false}musicRequest++;music.pause();musicPlaying=false;$('track-status').textContent='Paused · a moment of quiet';syncMusic()}
+music.addEventListener('ended',newTrack);
+music.addEventListener('error',()=>{musicPlaying=false;$('track-status').textContent='Track missing · add your local MP3s';syncMusic()});
+$('pause-music').onclick=()=>musicPlaying?stopMusic():playMusic();
+$('volume').oninput=e=>{music.volume=Number(e.target.value);wind.volume=Number(e.target.value)*.55;strum.volume=music.volume;tvVideo.volume=music.volume;eatAudio.volume=music.volume};
+async function balcony(){
+ state.balcony=!state.balcony;if(reduceMotion)balconySlide=state.balcony?1:0;
+ if(state.balcony){try{await wind.play()}catch{notify('The balcony is open. Add wind.mp3 beside this HTML for the breeze.')}}else{wind.pause();wind.currentTime=0}
+}
+/* Local media controllers. One element per source; generation IDs invalidate
+   stale playback promises after pause, room changes, retries or restart. */
+const tvVideo=document.createElement('video');tvVideo.preload='metadata';tvVideo.playsInline=true;tvVideo.loop=TV_MEDIA.loop;tvVideo.src=TV_MEDIA.src;tvVideo.volume=music.volume;
+const tvState={on:false,status:'off',request:0,resumeMusic:false,musicRevision:0};
+function restoreTVMusic(){
+ if(tvState.resumeMusic&&!document.hidden){const restore=tvState.musicRevision===musicRevision&&!state.ended;tvState.resumeMusic=false;if(restore)playMusic(true)}
+}
+async function playTV(){
+ if(room!=='living'||state.ended)return;
+ const request=++tvState.request;if(tvState.status==='error'||tvVideo.error){tvVideo.src=TV_MEDIA.src;tvVideo.load()}tvState.on=true;tvState.status='loading';
+ if(musicPlaying||!music.paused){tvState.resumeMusic=true;tvState.musicRevision=musicRevision;stopMusic(true);$('track-status').textContent='Paused while the TV is playing'}
+ try{
+  await tvVideo.play();if(request!==tvState.request)return;
+  tvState.status=tvVideo.paused?'paused':'playing';
+ }catch{if(request!==tvState.request)return;tvState.status='error';tvVideo.pause();restoreTVMusic();notify('TV unavailable. Check the local TV video file and try again.')}
+}
+function syncConsoleControls(){
+ if(!modalOpen)return;
+ const button=$('modal-actions').querySelector('[data-console-control="tv"]');if(!button)return;
+ const label=tvState.status==='loading'?'Cancel TV loading':tvState.status==='playing'&&!tvVideo.paused?'Pause TV':tvState.status==='error'?'Retry TV':tvState.on?'Resume TV':'Play TV';
+ if(button.textContent!==label)button.textContent=label;
+ const record=$('modal-actions').querySelector('[data-console-control="record"]'),recordLabel=musicPlaying?'Turn the record off':'Put a new record on';
+ if(record&&record.textContent!==recordLabel)record.textContent=recordLabel;
+}
+function pauseTV(restore=true){
+ tvState.request++;tvVideo.pause();if(tvState.on&&tvState.status!=='error')tvState.status='paused';if(restore)restoreTVMusic();
+}
+function stopTV(restore=true){pauseTV(false);tvState.on=false;tvState.status='off';try{tvVideo.currentTime=0}catch{}if(restore)restoreTVMusic();else tvState.resumeMusic=false}
+tvVideo.addEventListener('error',()=>{if(!tvState.on)return;tvState.request++;tvVideo.pause();tvState.status='error';restoreTVMusic();notify('TV unavailable. Check the local TV video file and try again.')});
+tvVideo.addEventListener('ended',()=>{if(!tvVideo.loop&&tvState.on){tvState.status='paused';restoreTVMusic()}});
+const eatAudio=new Audio(SNACK.src);eatAudio.preload='metadata';eatAudio.loop=false;eatAudio.volume=music.volume;
+eatAudio.addEventListener('loadedmetadata',()=>{if(snack.phase!=='idle'&&Number.isFinite(eatAudio.duration))snack.duration=Math.max(1.2,Math.min(SNACK.maxDuration,eatAudio.duration))});
+let fridgeSlide=0;
+const snack={phase:'idle',elapsed:0,duration:SNACK.duration,request:0,audioStarted:false,origin:null};
+function cancelSnack(){snack.request++;snack.phase='idle';snack.origin=null;snack.audioStarted=false;eatAudio.pause();try{eatAudio.currentTime=0}catch{}}
+function toggleFridge(){cancelSnack();state.fridge=!state.fridge;if(reduceMotion)fridgeSlide=state.fridge?1:0}
+function snackPositionSafe(){
+ if(room!=='living'||player.pose!=='standing'||!walkable(Math.round(player.x),Math.round(player.y)))return false;
+ const g=furniture.living.find(g=>g.token==='F');if(!g)return false;
+ const S=furnitureSpace(g),q=S.local(player.x,player.y);
+ if(q.v<S.D||q.v>S.D+1.7||q.u<-.2||q.u>S.W+.2)return false;
+ const width=(S.W-FIT.frame*2-FIT.gap)/2,angle=Math.PI*.42;
+ // Check the final open leaves against the player's body radius. The food
+ // animation only starts after both leaves finish moving; never teleport.
+ for(const hand of [1,-1]){
+  const hinge=hand===1?FIT.frame:S.W-FIT.frame;
+  const a=S.world(hinge,S.D),b=S.world(hinge+hand*width*Math.cos(angle),S.D+width*Math.sin(angle));
+  const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((player.x-a.x)*dx+(player.y-a.y)*dy)/(dx*dx+dy*dy)));
+  if(Math.hypot(player.x-a.x-t*dx,player.y-a.y-t*dy)<.24)return false;
+ }
+ return true;
+}
+function startSnack(){
+ if(snack.phase!=='idle')return;
+ if(!snackPositionSafe()){notify('Step into the middle of the fridge aisle to have a snack.');return}
+ state.fridge=true;snack.phase='opening';snack.elapsed=0;snack.origin={x:player.x,y:player.y};snack.request++;
+ if(reduceMotion)fridgeSlide=1;
+ if(reduceMotion)beginEating();
+}
+function beginEating(){
+ snack.phase='eating';snack.elapsed=0;const request=snack.request;
+ eatAudio.pause();eatAudio.currentTime=0;snack.audioStarted=true;
+ eatAudio.play().catch(()=>{if(request===snack.request&&snack.phase!=='idle')notify('Snack sound unavailable. Check eat.mp3 beside index.html.')});
+ snack.duration=Number.isFinite(eatAudio.duration)?Math.max(1.2,Math.min(SNACK.maxDuration,eatAudio.duration)):SNACK.duration;
+}
+
+function updateActivities(dt){
+ const fixture=INSPECT_FRIDGE_PROGRESS;
+ const target=state.fridge?1:0,step=SNACK.doorSpeed*dt;
+ fridgeSlide=fixture!==null&&!reduceMotion?Math.max(0,Math.min(1,Number(fixture)||0)):reduceMotion?target:fridgeSlide+Math.sign(target-fridgeSlide)*Math.min(Math.abs(target-fridgeSlide),step);
+ if(snack.phase==='idle')return;
+ if(room!=='living'||!state.fridge||player.pose!=='standing'||!snack.origin||Math.hypot(player.x-snack.origin.x,player.y-snack.origin.y)>.05){cancelSnack();return}
+ if(snack.phase==='opening'){if(fridgeSlide===1)beginEating();return}
+ snack.elapsed+=dt;
+ if(snack.elapsed>=snack.duration||snack.audioStarted&&eatAudio.ended){snack.phase='idle';snack.origin=null;snack.audioStarted=false;snack.request++;eatAudio.pause();eatAudio.currentTime=0}
+}
+function borrowSweater(){
+ const choices=SWEATERS.filter(s=>s.id!==appearance.outfitId),list=choices.length?choices:SWEATERS;
+ if(!list.length){notify('Add a sweater to SWEATERS first.');return}
+ const next=list[Math.floor(Math.random()*list.length)];appearance.outfitId=next.id;notify('Wearing '+next.name+'.');
+}
+/* ======================================================================
+   4. MEMORY MODALS — typewriter, focus trap, safe text and optional images.
+   All game keys are cleared when a dialog opens or the window loses focus.
+   ====================================================================== */
+function notify(message){clearTimeout(toastTimer);$('toast').textContent=message;$('toast').hidden=false;toastTimer=setTimeout(()=>$('toast').hidden=true,6000)}
+// The single shell owns cancellation, focus, listeners and stale async guards.
+let activePanel=null,panelGeneration=0;
+function clearGameInput(){
+ keys.clear();for(const button of document.querySelectorAll('[data-move]')){
+  for(const id of heldPointers.get(button)||[])if(button.hasPointerCapture(id))button.releasePointerCapture(id);
+ }heldPointers.clear();
+}
+function closePanel(reason='cancel',restoreFocus=true){
+ const panel=activePanel;if(!panel)return;
+ activePanel=null;panelGeneration++;panel.controller.abort();clearInterval(typeTimer);
+ for(const dispose of panel.disposers)dispose(reason);
+ const img=$('modal-image');img.onload=img.onerror=null;img.removeAttribute('src');img.hidden=true;
+ $('activity-body').replaceChildren();$('activity-body').hidden=true;
+ $('modal-actions').replaceChildren();$('overlay').hidden=true;modalOpen=false;
+ document.querySelector('.app').inert=false;document.body.style.overflow=panel.bodyOverflow;
+ clearGameInput();if(restoreFocus)(panel.origin?.isConnected&&!panel.origin.closest('[hidden]')?panel.origin:canvas).focus();
+}
+function closeModal(){if(!state.ended)closePanel('cancel')}
+function openPanel(kind,title){
+ const origin=activePanel?.origin||document.activeElement;
+ clearTimeout(toastTimer);$('toast').hidden=true;
+ closePanel('replace',false);
+ const panel={kind,origin,controller:new AbortController(),disposers:[],generation:++panelGeneration,bodyOverflow:document.body.style.overflow};
+ activePanel=panel;modalOpen=true;clearGameInput();cancelSnack();
+ document.querySelector('.app').inert=true;document.body.style.overflow='hidden';
+ $('overlay').hidden=false;$('overlay').querySelector('.modal').classList.toggle('activity',kind!=='memory');
+ $('modal-title').textContent=title;$('close-modal').hidden=state.ended;
+ $('activity-body').hidden=kind==='memory';$('modal-text').textContent='';
+ return panel;
+}
+function panelAction(label,fn,secondary=false){
+ const button=document.createElement('button');button.className='action'+(secondary?' secondary':'');button.textContent=label;
+ button.addEventListener('click',fn,{signal:activePanel.controller.signal});$('modal-actions').append(button);return button;
+}
+function showModal(data,actions=[]){
+ const panel=openPanel('memory',data.title);$('modal-icon').textContent=data.icon||'♡';
+ const img=$('modal-image');
+ img.onerror=()=>{if(activePanel!==panel)return;img.hidden=true;notify('This memory image could not be loaded. Check its URL in interactionData.')};
+ if(data.image){img.onload=()=>{if(activePanel===panel)img.hidden=false};img.src=data.image}
+ let i=0;if(reduceMotion)$('modal-text').textContent=data.text;else typeTimer=setInterval(()=>{if(activePanel!==panel)return; $('modal-text').textContent=data.text.slice(0,++i);if(i>=data.text.length)clearInterval(typeTimer)},19);
+ for(const [label,fn,secondary] of [...actions,...(state.ended?[]:[['Keep exploring',closeModal,true]])])panelAction(label,fn,secondary);
+ ($('modal-actions').querySelector('button')||$('close-modal')).focus();
+}
+function openWardrobe(instance){
+ if(instance?.activity!=='wardrobe')return;
+ const panel=openPanel('wardrobe','Choose a sweater');panel.instanceId=instance.id;
+ const draft={...appearance,outfitId:wornSweater()?.id||null};panel.draft=draft;
+ $('modal-kicker').textContent='A little comfort, borrowed';
+ const body=$('activity-body');
+ const current=document.createElement('p');current.className='wardrobe-current';current.textContent='Currently wearing: '+(wornSweater()?.name||'Original outfit');body.append(current);
+ const layout=document.createElement('div');layout.className='wardrobe-layout';body.append(layout);
+ const preview=document.createElement('div');preview.className='wardrobe-preview';layout.append(preview);
+ const portrait=document.createElement('canvas');portrait.width=440;portrait.height=510;portrait.setAttribute('role','img');preview.append(portrait);
+ const selected=document.createElement('strong'),story=document.createElement('p');selected.setAttribute('aria-live','polite');preview.append(selected,story);
+ const items=document.createElement('fieldset');items.className='wardrobe-items';const legend=document.createElement('legend');legend.textContent='Pick one to try on';items.append(legend);layout.append(items);
+ const renderPreview=()=>{
+  if(activePanel!==panel)return;
+  const style=wornSweater(draft);selected.textContent=style?.name||'Original outfit';portrait.setAttribute('aria-label',selected.textContent+' character preview');
+  story.textContent=style?.story||'Try it on here. Wear it when it feels right.';
+  drawCharacterPreview(portrait,draft);for(const input of items.querySelectorAll('input'))input.checked=(input.value||null)===draft.outfitId;
+ };
+ for(const style of [null,...SWEATERS]){
+  const label=document.createElement('label');label.className='garment-card';items.append(label);
+  const input=document.createElement('input');input.type='radio';input.name='wardrobe-outfit';input.value=style?.id||'';label.append(input);
+  const thumb=document.createElement('canvas');thumb.width=76;thumb.height=104;thumb.setAttribute('aria-hidden','true');label.append(thumb);drawCharacterPreview(thumb,{...draft,outfitId:style?.id||null});
+  const words=document.createElement('span'),name=document.createElement('strong'),note=document.createElement('small');name.textContent=style?.name||'Original outfit';note.textContent=style?.id===appearance.outfitId||!style&&!wornSweater()?'Wearing now':style?.text||'Try on';words.append(name,note);
+  const swatches=document.createElement('span');swatches.className='swatches';swatches.setAttribute('aria-hidden','true');for(const color of style?[style.body,style.sleeves,style.hood]:['#e6b7d0']){const swatch=document.createElement('i');swatch.style.backgroundColor=color;swatches.append(swatch)}words.append(swatches);label.append(words);
+  input.addEventListener('change',()=>{draft.outfitId=style?.id||null;renderPreview();loadArt(style)}, {signal:panel.controller.signal});
+  if(style?.thumbnail?.src){const asset=wardrobeAsset(style.thumbnail.src);asset.ready.then(()=>{if(activePanel!==panel||asset.status!=='ready')return;const img=document.createElement('img');img.src=asset.image.src;img.alt='';thumb.replaceWith(img)})}
+ }
+ function loadArt(style){if(!style?.artwork?.src)return;const asset=wardrobeAsset(style.artwork.src);asset.ready.then(()=>{if(activePanel!==panel||draft.outfitId!==style.id)return;renderPreview();if(asset.status==='error')story.textContent='Showing the illustrated version.'})}
+ const help=document.createElement('div');help.className='wardrobe-help';help.textContent='Your choice stays with you for this visit. Cancel keeps what you were wearing.';body.append(help);
+ panelAction('Wear this',()=>{appearance.outfitId=wornSweater(draft)?.id||null;closePanel('apply');notify('Wearing '+(wornSweater()?.name||'Original outfit')+'.')});
+ panelAction('Cancel',closeModal,true);renderPreview();loadArt(wornSweater(draft));
+ items.querySelector('input:checked').focus();
+}
+// Board state contains vectors, never a serialized image. Histories are panel-local.
+function copyBoardOperations(operations){return operations.map(op=>({...op,points:op.points.map(p=>[...p])}))}
+function emptyBoard(){return {revision:0,sides:{front:copyBoardOperations(BOARD_STARTERS.front),back:copyBoardOperations(BOARD_STARTERS.back)}}}
+function resetBoards(){boardSession.clear();boardTextures.clear();for(const instance of objectInstances.values())if(instance.activity==='drawing')boardSession.set(instance.id,emptyBoard())}
+function boardState(instance){if(!boardSession.has(instance.id))boardSession.set(instance.id,emptyBoard());return boardSession.get(instance.id)}
+function boardAspect(instance){const S=furnitureSpace(instance.group,instance.room);return (S.W-.24)*32/25}
+function paintBoardOperation(context,op,width,height){
+ if(!op.points.length)return;
+ context.save();context.globalCompositeOperation=op.tool==='eraser'?'destination-out':'source-over';
+ context.strokeStyle=context.fillStyle=op.color;context.lineWidth=op.width*height;context.lineCap=context.lineJoin='round';
+ const [x,y]=op.points[0];context.beginPath();context.arc(x*width,y*height,context.lineWidth/2,0,Math.PI*2);context.fill();
+ if(op.points.length>1){context.beginPath();op.points.forEach(([x,y],i)=>i?context.lineTo(x*width,y*height):context.moveTo(x*width,y*height));context.stroke()}
+ context.restore();
+}
+function replayBoard(context,operations,width,height){context.clearRect(0,0,width,height);for(const op of operations)paintBoardOperation(context,op,width,height)}
+function boardPointCount(operations){return operations.reduce((n,op)=>n+op.points.length,0)}
+function boardInkTexture(instance,side,sample){
+ const state=boardState(instance),key=instance.id+':'+side,width=BOARD_SETTINGS.worldWidth,height=Math.round(width/boardAspect(instance));
+ let entry=boardTextures.get(key);
+ if(!entry||entry.revision!==state.revision||entry.source.height!==height){
+  const source=document.createElement('canvas'),tinted=document.createElement('canvas');source.width=tinted.width=width;source.height=tinted.height=height;
+  replayBoard(source.getContext('2d'),state.sides[side],width,height);entry={revision:state.revision,source,tinted,tint:null};boardTextures.set(key,entry);
+ }
+ const tint=litColor('#ffffff',sample);
+ if(entry.tint!==tint){
+  const c=entry.tinted.getContext('2d');c.globalCompositeOperation='source-over';c.clearRect(0,0,width,height);c.drawImage(entry.source,0,0);
+  c.globalCompositeOperation='multiply';c.fillStyle=tint;c.fillRect(0,0,width,height);
+  c.globalCompositeOperation='destination-in';c.drawImage(entry.source,0,0);c.globalCompositeOperation='source-over';entry.tint=tint;
+ }
+ return entry.tinted;
+}
+function drawBoardInk(S,instance,side,face){
+ const name=side===1?'front':'back';if(!boardState(instance).sides[name].length)return;
+ // Front reads along +U; the back reads along -U. These authored face axes
+ // rotate with furniture; neither face is a mirrored copy of the other.
+ const [left,right]=side===1?[.12,S.W-.12]:[S.W-.12,.12],v=face+side*.001;
+ const points=[S.p(left,v,46.5),S.p(right,v,46.5),S.p(right,v,21.5),S.p(left,v,21.5)];
+ const texture=boardInkTexture(instance,name,midpoint(points));
+ const paint=()=>{const [tl,tr,,bl]=points;ctx.save();ctx.transform(tr.x-tl.x,tr.y-tl.y,bl.x-tl.x,bl.y-tl.y,tl.x,tl.y);ctx.drawImage(texture,0,0,1,1);ctx.restore()};
+ if(!enqueue(points,paint))paint();
+}
+function openDrawing(instance){
+ if(instance?.activity!=='drawing')return;
+ const panel=openPanel('drawing','A little space to doodle');panel.instanceId=instance.id;
+ $('modal-kicker').textContent='Leave a little love here';
+ const state=boardState(instance),draft={};for(const side of ['front','back'])draft[side]={operations:copyBoardOperations(state.sides[side]),past:[],future:[]};panel.draft=draft;
+ const body=$('activity-body');body.innerHTML=`
+ <div class="drawing-toolbar"><fieldset id="drawing-sides"><legend>Board side</legend>
+ <label class="draw-choice"><input type="radio" name="drawing-side" value="front" checked>Front</label>
+ <label class="draw-choice"><input type="radio" name="drawing-side" value="back">Back</label></fieldset></div>
+ <div class="drawing-toolbar"><fieldset id="drawing-colors"><legend>Marker color</legend></fieldset></div>
+ <div class="drawing-row"><fieldset id="drawing-tools"><legend>Tool</legend>
+ <label class="draw-choice"><input type="radio" name="drawing-tool" value="marker" checked>Marker</label>
+ <label class="draw-choice"><input type="radio" name="drawing-tool" value="eraser">Eraser</label></fieldset>
+ <label class="draw-width">Width <input id="drawing-width" type="range" min="1" max="10" step=".5" value="2.5"><output id="drawing-width-value" for="drawing-width">2.5</output></label></div>
+ <div class="drawing-row"><button type="button" class="action secondary" id="drawing-undo">Undo</button><button type="button" class="action secondary" id="drawing-redo">Redo</button><button type="button" class="action secondary" id="drawing-clear">Clear this side</button></div>
+ <div class="drawing-paper"><canvas id="drawing-canvas" tabindex="0" aria-label="Front drawing surface" aria-describedby="drawing-help drawing-status"></canvas></div>
+ <p class="drawing-status" id="drawing-status" role="status"></p>
+ <p class="drawing-help" id="drawing-help">Draw with a mouse, pen or touch. Keyboard: arrows move the cursor; Space lowers or lifts the pen. Done keeps both sides for this visit; Cancel leaves the board as it was.</p>`;
+ const paper=$('drawing-canvas'),context=paper.getContext('2d'),base=document.createElement('canvas');
+ paper.style.aspectRatio=String(boardAspect(instance));
+ const visibleSide=furnitureSpace(instance.group,instance.room).frontVisible?'front':'back';
+ let side=visibleSide,color=BOARD_COLORS[0].color,tool='marker',active=null,raf=0,dirty=true,disposed=false,cursor=[.5,.5];
+ const signal=panel.controller.signal,on=(target,event,fn)=>target.addEventListener(event,fn,{signal});
+ body.querySelector('input[name=drawing-side][value='+side+']').checked=true;paper.setAttribute('aria-label',(side==='front'?'Front':'Back')+' drawing surface');
+ const status=$('drawing-status'),undo=$('drawing-undo'),redo=$('drawing-redo'),clear=$('drawing-clear');
+ const snapshot=()=>draft[side];
+ const say=message=>status.textContent=message||`${side==='front'?'Front':'Back'} · ${side===visibleSide?'facing the room':'opposite side'} · ${snapshot().operations.length}/${BOARD_SETTINGS.maxOperations} strokes · Undo keeps the last ${BOARD_SETTINGS.history} changes.`;
+ function controls(){undo.disabled=!snapshot().past.length;redo.disabled=!snapshot().future.length;clear.disabled=!snapshot().operations.length}
+ function schedule(){if(disposed||raf)return;raf=requestAnimationFrame(()=>{raf=0;repaint()})}
+ function repaint(){
+  if(disposed)return;
+  const width=Math.max(1,Math.min(BOARD_SETTINGS.previewMaxWidth,Math.round(paper.getBoundingClientRect().width*Math.min(devicePixelRatio||1,2)))),height=Math.max(1,Math.round(width/boardAspect(instance)));
+  if(paper.width!==width||paper.height!==height){paper.width=base.width=width;paper.height=base.height=height;dirty=true}
+  if(dirty){replayBoard(base.getContext('2d'),snapshot().operations,width,height);dirty=false}
+  context.clearRect(0,0,width,height);context.drawImage(base,0,0);if(active)paintBoardOperation(context,active.op,width,height);
+  if(document.activeElement===paper){const [x,y]=cursor;context.save();context.strokeStyle='#8f6e86';context.lineWidth=1;context.setLineDash([3,3]);context.beginPath();context.arc(x*width,y*height,Math.max(4,Number($('drawing-width').value)/100*height/2),0,Math.PI*2);context.stroke();context.restore()}
+ }
+ function change(operations){const s=snapshot();s.past.push(s.operations);if(s.past.length>BOARD_SETTINGS.history)s.past.shift();s.operations=operations;s.future=[];dirty=true;controls();say();schedule()}
+ function release(stroke){if(stroke?.pointerId!==null&&stroke?.pointerId!==undefined&&paper.hasPointerCapture(stroke.pointerId))paper.releasePointerCapture(stroke.pointerId)}
+ function finish(commit=true){const stroke=active;if(!stroke)return;active=null;release(stroke);if(commit)change([...snapshot().operations,stroke.op]);else schedule()}
+ function begin(point,pointerId=null){
+  if(active)return false;const s=snapshot(),remaining=BOARD_SETTINGS.maxPoints-boardPointCount(s.operations);
+  if(s.operations.length>=BOARD_SETTINGS.maxOperations||remaining<1){say('This side is full. Undo a stroke or Clear this side to make room; your drawing is still here.');return false}
+  active={pointerId,limit:Math.min(remaining,BOARD_SETTINGS.maxStrokePoints),op:{tool,color,width:Number($('drawing-width').value)/100,points:[[...point]]}};schedule();return true;
+ }
+ function append(point){
+  if(!active)return;const last=active.op.points.at(-1),r=paper.getBoundingClientRect();if(Math.hypot((last[0]-point[0])*r.width,(last[1]-point[1])*r.height)<.65)return;
+  if(active.op.points.length>=active.limit){finish();say('That stroke is full. Lift your pen and continue, or undo to make room.');return}
+  active.op.points.push([...point]);schedule();
+ }
+ function point(e){const r=paper.getBoundingClientRect();return [Math.max(0,Math.min(1,(e.clientX-r.left)/r.width)),Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))]}
+ for(const [index,ink] of BOARD_COLORS.entries()){
+  const label=document.createElement('label');label.className='draw-choice';const input=document.createElement('input');input.type='radio';input.name='drawing-color';input.value=ink.color;input.checked=index===0;
+  const dot=document.createElement('i');dot.className='draw-color';dot.style.setProperty('--ink',ink.color);dot.setAttribute('aria-hidden','true');label.append(input,dot,document.createTextNode(ink.name));$('drawing-colors').append(label);
+  on(input,'change',()=>{finish();color=ink.color;tool='marker';body.querySelector('input[name=drawing-tool][value=marker]').checked=true});
+ }
+ for(const input of body.querySelectorAll('input[name=drawing-side]'))on(input,'change',()=>{finish();side=input.value;dirty=true;paper.setAttribute('aria-label',(side==='front'?'Front':'Back')+' drawing surface');controls();say();schedule()});
+ for(const input of body.querySelectorAll('input[name=drawing-tool]'))on(input,'change',()=>{finish();tool=input.value});
+ on($('drawing-width'),'input',()=>{finish();$('drawing-width-value').value=$('drawing-width').value;schedule()});
+ function history(direction){finish();const s=snapshot(),from=direction==='undo'?s.past:s.future,to=direction==='undo'?s.future:s.past;if(!from.length)return;to.push(s.operations);s.operations=from.pop();dirty=true;controls();say();schedule()}
+ on(undo,'click',()=>history('undo'));on(redo,'click',()=>history('redo'));on(clear,'click',()=>{finish();if(snapshot().operations.length)change([])});
+ on(paper,'pointerdown',e=>{if(e.button!==0||active)return;e.preventDefault();paper.focus({preventScroll:true});cursor=point(e);if(begin(cursor,e.pointerId))paper.setPointerCapture(e.pointerId)});
+ on(paper,'pointermove',e=>{if(!active||active.pointerId!==e.pointerId)return;e.preventDefault();for(const event of e.getCoalescedEvents?.().length?e.getCoalescedEvents():[e]){cursor=point(event);append(cursor)}});
+ on(paper,'pointerup',e=>{if(active?.pointerId!==e.pointerId)return;append(point(e));finish()});
+ for(const event of ['pointercancel','lostpointercapture'])on(paper,event,e=>{if(active?.pointerId===e.pointerId)finish(false)});
+ on(window,'blur',()=>finish(false));on(paper,'focus',schedule);on(paper,'blur',()=>{finish();schedule()});
+ on(paper,'keydown',e=>{
+  if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key)){
+   e.preventDefault();const step=e.shiftKey?.05:.012;cursor=[Math.max(0,Math.min(1,cursor[0]+(e.key==='ArrowRight'?step:e.key==='ArrowLeft'?-step:0))),Math.max(0,Math.min(1,cursor[1]+(e.key==='ArrowDown'?step*boardAspect(instance):e.key==='ArrowUp'?-step*boardAspect(instance):0)))];if(active?.pointerId===null)append(cursor);schedule();
+  }else if(e.key===' '){e.preventDefault();if(e.repeat)return;if(active)finish();else begin(cursor)}else if(e.key==='Enter'){e.preventDefault();finish()}
+ });
+ on(body,'keydown',e=>{if((e.ctrlKey||e.metaKey)&&['z','y'].includes(e.key.toLowerCase())){e.preventDefault();history(e.key.toLowerCase()==='y'||e.shiftKey?'redo':'undo')}});
+ const observer=new ResizeObserver(schedule);observer.observe(paper);
+ panel.disposers.push(()=>{disposed=true;if(raf)cancelAnimationFrame(raf);observer.disconnect();const stroke=active;active=null;release(stroke)});
+ panelAction('Done',()=>{finish();const committed=boardState(instance);committed.sides={front:copyBoardOperations(draft.front.operations),back:copyBoardOperations(draft.back.operations)};committed.revision++;closePanel('apply');notify('Your drawing is here for this visit. ♡')});
+ panelAction('Cancel',closeModal,true);controls();say();schedule();body.querySelector('input[name=drawing-side]:checked').focus();
+}
+
+function finish(){
+ closeModal();state.ended=true;keys.clear();stopTV(false);cancelSnack();stopMusic();wind.pause();strumRequest++;strum.pause();strum.currentTime=0;state.balcony=false;
+ showModal({title:'To our next chapter.',icon:'♡',text:'Two whole years together. A lifetime of little worlds still to build. Thank you for being my home, my adventure, and my favorite person. Happy second anniversary, my love.'},[['Come home again',()=>{state.ended=false;closeModal();start()}]]);
+ $('modal-kicker').textContent='The end of this chapter · the beginning of so many more';
+}
+function interact(){
+ if(modalOpen||state.ended)return;if(player.pose!=='standing'){getUp();return}
+ const near=nearest();if(!near){notify('Walk a little closer to something to discover its story.');return}
+ if(near.instance?.activity==='drawing'){openDrawing(near.instance);return}
+ const t=interactionKey(near.token),data=interactionData[t];let label=data.action,action;
+ switch(t){
+ case'M':action=()=>{const colors=SKIN_COLORS.filter(c=>c!==appearance.skin);appearance.skin=colors[Math.floor(Math.random()*colors.length)];closeModal();notify('A new look, the same favorite person. ♡')};break;
+ case'Bed':case'Sofa':action=()=>{player.returnPos={x:player.x,y:player.y};player.anchor=near;player.x=near.x;player.y=near.y;player.pose=t==='Bed'?'sleeping':'sitting';closeModal();updateHint()};break;
+ case'Guitar':action=()=>{playStrum();closeModal()};break;
+ case'R':label=musicPlaying?'Turn the record off':'Put a new record on';action=()=>{musicPlaying?stopMusic():newTrack();closeModal()};break;
+ case'Balc':label=state.balcony?'Close the balcony':'Open the balcony';action=()=>{balcony();closeModal()};break;
+ case'K-Sto':label=state.stove?'Turn off the stove':'Turn on the stove';action=()=>{state.stove=!state.stove;closeModal()};break;
+ case'K-Si':label=state.sink?'Turn off the water':'Turn on the water';action=()=>{state.sink=!state.sink;closeModal()};break;
+ case'D':label=state.lamp?'Turn off the bedside lamp':'Turn on the bedside lamp';action=()=>{state.lamp=!state.lamp;closeModal()};break;
+ case'Ct':label=state.tree?'Switch off the lights':'Light the tree';action=()=>{state.tree=!state.tree;closeModal()};break;
+ case'F':label=state.fridge?'Close the fridge':'Open the fridge';action=()=>{toggleFridge();closeModal()};break;
+ case'FD':action=finish;break;
+ case 3:action=()=>{closeModal();switchRoom()};break;
+ }
+ const actions=action?[[label,action]]:[];
+ if(t==='L'&&bedroomChair&&near.instance===bedroomChair.instance)actions.push(['Sit at the desk',sitAtDesk]);
+ if(near.token==='TV'){
+  const playing=tvState.status==='playing'&&!tvVideo.paused,loading=tvState.status==='loading';
+  actions.push([loading?'Cancel TV loading':playing?'Pause TV':tvState.status==='error'?'Retry TV':tvState.on?'Resume TV':'Play TV',()=>{tvState.status==='loading'||tvState.status==='playing'&&!tvVideo.paused?pauseTV():playTV();closeModal()}]);
+  if(tvState.on)actions.push(['Turn TV off',()=>{stopTV();closeModal()}]);
+ }
+ if(t==='F'&&snack.phase==='idle')actions.push(['Have a snack',()=>{closeModal();startSnack()}]);
+ if(t==='C'){
+  if(near.instance?.activity==='wardrobe')actions.push(['Choose a sweater',()=>openWardrobe(near.instance)]);
+  actions.push(['Borrow a sweater',()=>{borrowSweater();closeModal()}]);
+  if(appearance.outfitId)actions.push(['Wear original outfit',()=>{appearance.outfitId=null;closeModal()}]);
+ }
+ $('modal-kicker').textContent='A little memory';showModal(data,actions);
+ if(near.token==='TV'){const controls=$('modal-actions').children;controls[0].dataset.consoleControl='record';controls[1].dataset.consoleControl='tv'}
+}
+$('close-modal').onclick=closeModal;$('overlay').onclick=e=>{if(e.target===$('overlay'))closeModal()};
+$('open-letter').onclick=()=>{$('modal-kicker').textContent='A note from me to you';showModal(interactionData.letter)};
+document.addEventListener('keydown',e=>{
+ if(modalOpen){if(e.key==='Escape'){e.preventDefault();closeModal()}
+ if(e.key==='Tab'){const controls=[...$('overlay').querySelectorAll('button,input,[tabindex]')].filter(el=>!el.disabled&&el.tabIndex>=0&&el.getClientRects().length&&(!el.matches('input[type=radio]')||el.checked));const first=controls[0],last=controls.at(-1);if(e.shiftKey&&(document.activeElement===first||!$('overlay').contains(document.activeElement))){e.preventDefault();last?.focus()}else if(!e.shiftKey&&(document.activeElement===last||!$('overlay').contains(document.activeElement))){e.preventDefault();first?.focus()}}return}
+ if(e.target.matches('input,button'))return;
+ const key=e.key.toLowerCase();if(['w','a','s','d','arrowup','arrowdown','arrowleft','arrowright',' ','e'].includes(key)){e.preventDefault();if(key==='e'||key===' '){if(!e.repeat)interact()}else keys.add(key)}
+});
+document.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',clearGameInput);document.addEventListener('visibilitychange',()=>{keys.clear();lastTime=0;if(document.hidden){if(!state.ended)closePanel('hidden',false);pauseTV();cancelSnack()}else restoreTVMusic()});
+canvas.addEventListener('pointerdown',()=>canvas.focus());
+const heldPointers=new Map();
+document.querySelectorAll('[data-move]').forEach(button=>{
+ const key='arrow'+button.dataset.move;button.addEventListener('pointerdown',e=>{e.preventDefault();if(modalOpen||state.ended)return;keys.add(key);if(!heldPointers.has(button))heldPointers.set(button,new Set());heldPointers.get(button).add(e.pointerId);button.setPointerCapture(e.pointerId)});
+ for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,e=>{keys.delete(key);heldPointers.get(button)?.delete(e.pointerId)});
+});$('touch-interact').onclick=()=>{if(modalOpen)return;canvas.focus();interact()};
+/* ======================================================================
+   5. CANVAS ART — change primitives here to replace them with your sprites.
+   One cell is a 64 × 32 diamond. Z is vertical height above the floor.
+   A BSP painter orders individual surfaces, including attached details and
+   the player, against the rotated camera for correct occlusion.
+   Furniture groups are contiguous tiles, so editing maps extends objects.
+   ====================================================================== */
+let treeGlow=0,lampGlow=0,stoveGlow=0,balconySlide=0;
+/* A small BSP painter replaces whole-object center sorting. Planes split
+   intersecting surfaces, so armrests, door leaves and the player can hide
+   one another correctly. Units here are grid X/Y and height / 32.
+   Floor art remains immediate; solid scene geometry joins this queue. */
+let sceneFaces=null,spriteAnchor=null;
+const geometryIssues=new Set();
+function scenePoint(p,anchor=spriteAnchor){
+ if(p.gx!==undefined)return p;
+ if(anchor?.gx===undefined)return null;
+ const a=(p.x-anchor.x)/(32*view.scale),t=(p.y-anchor.y)/(48*view.scale);
+ return {...p,gx:anchor.gx+(a-t)/2,gy:anchor.gy+(a+t)/2,gz:anchor.gz-32*t};
+}
+function towardCamera(vertices,bias=.012){return vertices.map(p=>({...p,gx:p.gx-bias,gy:p.gy+bias,gz:p.gz+32*bias}))}
+function enqueue(points,paint,direct=false){
+ if(!sceneFaces)return false;
+ const vertices=points.map(p=>scenePoint(p));if(vertices.some(p=>!p))return false;
+ sceneFaces.push({vertices,paint,direct});return true;
+}
+function facePlane(vertices){
+ const a=vertices[0];
+ for(let i=1;i<vertices.length-1;i++){
+  const b=vertices[i],c=vertices[i+1];
+  const u=[b.gx-a.gx,b.gy-a.gy,(b.gz-a.gz)/32],v=[c.gx-a.gx,c.gy-a.gy,(c.gz-a.gz)/32];
+  const n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]],length=Math.hypot(...n);
+  if(length>1e-9){const normal=n.map(v=>v/length);return{normal,d:normal[0]*a.gx+normal[1]*a.gy+normal[2]*a.gz/32}}
+ }
+ return null;
+}
+function visiblePolygon(vertices,color){
+ const plane=facePlane(vertices);if(plane&&-plane.normal[0]+plane.normal[1]+plane.normal[2]>1e-8)polygon(vertices,color);
+}
+// Shared parent-relative hinge. Thickness, face and handle all use this point
+// transform; opening never adds a second, unrelated door on top of the first.
+function hingedLeaf(point,hingeU,hingeV,width,height,z,angle,colors,hand=1){
+ const thickness=.055,c=Math.cos(angle),s=Math.sin(angle);
+ const p=(u,t,h)=>point(hingeU+hand*(u*c-t*s),hingeV+u*s+t*c,h);
+ const v=[[0,0,z],[width,0,z],[width,thickness,z],[0,thickness,z],
+  [0,0,z+height],[width,0,z+height],[width,thickness,z+height],[0,thickness,z+height]].map(a=>p(...a));
+ for(const [indices,color] of [[[4,5,6,7],colors[0]],[[0,1,5,4],colors[1]],[[1,2,6,5],colors[2]],[[3,7,6,2],colors[0]],[[0,4,7,3],colors[1]]])visiblePolygon((hand===1?indices:[...indices].reverse()).map(i=>v[i]),color);
+ const front=facePlane((hand===1?[v[3],v[7],v[6],v[2]]:[v[2],v[6],v[7],v[3]])),frontVisible=front&&-front.normal[0]+front.normal[1]+front.normal[2]>0;
+ return{p,thickness,frontVisible};
+}
+function planeDistance(p,plane){return plane.normal[0]*p.gx+plane.normal[1]*p.gy+plane.normal[2]*p.gz/32-plane.d}
+function splitFace(face,plane){
+ const positive=[],negative=[],v=face.vertices,eps=1e-7;
+ for(let i=0;i<v.length;i++){
+  const a=v[i],b=v[(i+1)%v.length],da=planeDistance(a,plane),db=planeDistance(b,plane);
+  if(da>=-eps)positive.push(a);if(da<=eps)negative.push(a);
+  if((da>eps&&db<-eps)||(da<-eps&&db>eps)){
+   const t=da/(da-db),p={};for(const key of ['x','y','gx','gy','gz'])p[key]=a[key]+(b[key]-a[key])*t;
+   positive.push(p);negative.push(p);
+  }
+ }
+ return [positive,negative].map(vertices=>vertices.length>=3?{...face,vertices}:null);
+}
+function buildBSP(faces,level=0){
+ if(!faces.length)return null;
+ // Prefer a balanced partition, penalizing fragments. A few candidates keep
+ // construction inexpensive while avoiding a deep tree of parallel shelves.
+ let best=null;
+ for(const index of [...new Set([0,Math.floor(faces.length/2),faces.length-1])]){
+  const plane=facePlane(faces[index].vertices);if(!plane)continue;
+  let pos=0,neg=0,splits=0;
+  for(const f of faces){let p=false,n=false;for(const v of f.vertices){const d=planeDistance(v,plane);p||=d>1e-7;n||=d<-1e-7}if(p)pos++;if(n)neg++;if(p&&n)splits++}
+  const score=Math.abs(pos-neg)+splits*3;if(!best||score<best.score)best={plane,score};
+ }
+ if(!best)return{coplanar:faces};
+ const positive=[],negative=[],coplanar=[];
+ for(const f of faces){let p=false,n=false;for(const v of f.vertices){const d=planeDistance(v,best.plane);p||=d>1e-7;n||=d<-1e-7}
+  if(p&&n){const [a,b]=splitFace(f,best.plane);if(a)positive.push(a);if(b)negative.push(b)}else if(p)positive.push(f);else if(n)negative.push(f);else coplanar.push(f);
+ }
+ return{plane:best.plane,coplanar,positive:buildBSP(positive,level+1),negative:buildBSP(negative,level+1)};
+}
+function flushScene(){
+ const faces=sceneFaces;sceneFaces=null;
+ const visit=node=>{if(!node)return;const toward=node.plane? -node.plane.normal[0]+node.plane.normal[1]+node.plane.normal[2]:1;
+  visit(toward>=0?node.negative:node.positive);
+  for(const f of node.coplanar){ctx.save();if(f.direct){f.paint(f.vertices)}else{ctx.beginPath();f.vertices.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.clip();f.paint()}ctx.restore()}
+  visit(toward>=0?node.positive:node.negative);
+ };
+ visit(buildBSP(faces));
+}
+function project(x,y,z=0){const p=cameraPoint(x,y);return{x:view.ox+(p.x-p.y)*32*view.scale,y:view.oy+(p.x+p.y)*16*view.scale-z*view.scale,gx:x,gy:y,gz:z}}
+// Light material colors themselves, including walls, upholstery and the player.
+// A distance falloff warms living-room surfaces and adds soft pink in the bedroom.
+function litColor(color,p){
+ if(!/^#[\da-f]{6}([\da-f]{2})?$/i.test(color)||p?.gx===undefined)return color;
+ // Independent room sources share the same distance falloff and material tinting.
+ const sources=room==='living'?(treePosition?[treePosition]:[]):bedroomLampPositions;
+ const glow=room==='living'?treeGlow:lampGlow;
+ const radius=room==='living'?ROOM_LIGHTING.treeRadius:ROOM_LIGHTING.lampRadius;
+ const strength=room==='living'?ROOM_LIGHTING.treeStrength:ROOM_LIGHTING.lampStrength;
+ const light=glow*strength*Math.min(1,sources.reduce((sum,source)=>sum+Math.max(0,1-Math.hypot(p.gx-source.x,p.gy-source.y)/radius)**1.5,0));
+ const warm=room==='living'?[1,.77,.60]:[1,.69,.44],lift=room==='living'?[49,25,17]:[52,27,12];
+ const stoveLight=room==='living'&&stoveLightPositions.length?stoveGlow*ROOM_LIGHTING.stoveStrength*stoveLightPositions.reduce((sum,source)=>sum+Math.max(0,1-Math.hypot(p.gx-source.x,p.gy-source.y)/ROOM_LIGHTING.stoveRadius)**1.5,0)/stoveLightPositions.length:0;
+ const ambient=room==='bedroom'?BEDROOM_ART.ambient:ROOM_LIGHTING.ambient;
+ const rgb=[1,3,5].map((offset,i)=>Math.min(255,Math.round(parseInt(color.slice(offset,offset+2),16)*(ambient+light*warm[i]+stoveLight*[1,.64,.35][i]) + light*lift[i]+stoveLight*[54,25,8][i])));
+ return '#'+rgb.map(c=>c.toString(16).padStart(2,'0')).join('')+color.slice(7);
+}
+function midpoint(points){return{gx:points.reduce((s,p)=>s+(p.gx||0),0)/points.length,gy:points.reduce((s,p)=>s+(p.gy||0),0)/points.length}}
+function polygon(points,color,stroke){
+ points=points.map(p=>scenePoint(p)||p);const sample=midpoint(points);
+ if(enqueue(points,fragment=>{
+  ctx.beginPath();fragment.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fillStyle=litColor(color,sample);ctx.fill();
+  // Cover subpixel antialias cracks along BSP cuts, without visible outlines.
+  if(color.length===7){ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=.45;ctx.lineJoin='round';ctx.stroke()}
+  if(stroke){ctx.strokeStyle=litColor(stroke,sample);ctx.lineWidth=.65*view.scale;ctx.stroke()}
+ },true))return;
+ ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fillStyle=litColor(color,sample);ctx.fill();if(stroke){ctx.strokeStyle=litColor(stroke,sample);ctx.lineWidth=.65*view.scale;ctx.stroke()}
+}
+function quad(x,y,w,d,z,color,stroke){polygon([project(x,y,z),project(x+w,y,z),project(x+w,y+d,z),project(x,y+d,z)],color,stroke)}
+function box(x,y,w,d,h,top,left,right,z=0){
+ // With the counterclockwise camera, -X and +Y are the visible side faces.
+ polygon([project(x,y,z),project(x,y+d,z),project(x,y+d,z+h),project(x,y,z+h)],left);
+ polygon([project(x,y+d,z),project(x+w,y+d,z),project(x+w,y+d,z+h),project(x,y+d,z+h)],right);
+ quad(x,y,w,d,z+h,top);
+}
+function line(points,color,width=1){
+ if(sceneFaces){for(let i=1;i<points.length;i++){
+  const a=points[i-1],b=points[i],length=Math.hypot(b.x-a.x,b.y-a.y);if(length<1e-8)continue;
+  const radius=(width+.6)*view.scale/2,dx=-(b.y-a.y)/length*radius,dy=(b.x-a.x)/length*radius;
+  const vertices=[[a,dx,dy],[a,-dx,-dy],[b,-dx,-dy],[b,dx,dy]].map(([p,x,y])=>scenePoint({x:p.x+x,y:p.y+y},p));
+  enqueue(towardCamera(vertices),()=>line([a,b],color,width));
+ }return}
+ ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle=litColor(color,midpoint(points));ctx.lineWidth=width*view.scale;ctx.lineCap='round';ctx.stroke();
+}
+function ellipse(p,rx,ry,color){
+ const vertices=Array.from({length:16},(_,i)=>scenePoint({x:p.x+Math.cos(i*Math.PI/8)*rx*view.scale,y:p.y+Math.sin(i*Math.PI/8)*ry*view.scale},p));
+ if(vertices.every(Boolean)&&enqueue(vertices,()=>ellipse(p,rx,ry,color)))return;
+ ctx.beginPath();ctx.ellipse(p.x,p.y,rx*view.scale,ry*view.scale,0,0,Math.PI*2);ctx.fillStyle=litColor(color,p);ctx.fill();
+}
+function label(text,x,y,z,color='#f0dba7',size=10){const p=project(x,y,z),w=text.length*size*.4*view.scale,h=size*view.scale;
+ const v=[[-w,2],[w,2],[w,-h],[-w,-h]].map(([dx,dy])=>scenePoint({x:p.x+dx,y:p.y+dy},p));if(enqueue(v,()=>label(text,x,y,z,color,size)))return;
+ ctx.fillStyle=litColor(color,p);ctx.font=`${size*view.scale}px Georgia`;ctx.textAlign='center';ctx.fillText(text,p.x,p.y)}
+function plant(x,y,z=0){box(x-.13,y-.13,.26,.26,10,'#b28a62','#795a41','#94704d',z);for(let i=0;i<6;i++){const a=i*Math.PI/3,p=project(x+Math.cos(a)*.15,y+Math.sin(a)*.15,z+18+(i%2)*6);ellipse(p,4,8,i%2?'#8e9c6a':'#647d57')}}
+function drawBedroomFloor(m,n){
+ box(-.55,-.55,m,n,9,'#d1ae8d','#725647','#a0785e',-10);
+ const plankWidth=1/3;
+ for(let row=0;row<n*3;row++){
+  const y=-.5+row*plankWidth,offset=(row*7%11)*.13;
+  for(let start=-.5-offset,plank=0;start<m-.5;start+=1.85,plank++){
+   const x=Math.max(-.5,start),end=Math.min(m-.5,start+1.85);
+   if(end<=x)continue;
+   const color=BEDROOM_ART.floor[(row*17+plank*3)%BEDROOM_ART.floor.length];
+   quad(x,y,end-x,plankWidth,0,color,'#87644588');
+   if((row+plank)%3===0&&end-x>.35)line([project(x+.08,y+.21,.02),project(end-.10,y+.21,.02)],'#f0c59544',.55);
+  }
+ }
+ quad(1,2.1,5,3.7,.5,'#a9827977');
+ for(let i=0;i<8;i++)line([project(1,2.2+i*.46,1),project(6,2.2+i*.46,1)],'#f4dac233',1);
+}
+function drawArchitecture(){
+ const n=map().length,m=map()[0].length;
+ // Platform thickness and a soft floating shadow ground the miniature.
+ ctx.save();ctx.filter='blur(18px)';ellipse(project(m/2,n/2,-14),m*30,n*10,'#10170f80');ctx.restore();
+ if(room==='bedroom'){drawBedroomFloor(m,n);return}
+ box(-.55,-.55,m,n,9,'#c7adb7','#766176','#92748a',-10);
+ for(let y=0;y<n;y++)for(let x=0;x<m;x++){
+ const colors=['#c3a9af','#bca2ad','#ceb6bc','#c5adb7'];quad(x-.49,y-.49,.98,.98,0,colors[(x*3+y)%4],'#8d738233');
+ // Floorboard seams, deliberately subtle.
+ line([project(x-.45,y-.12,.2),project(x+.45,y-.12,.2)],'#ead7e230',.6);
+ }
+ quad(2.6,1.9,3,3.5,.5,'#d6a9c180');for(let i=0;i<6;i++)quad(2.7+i*.48,2,.05,3.3,1,'#f4d3e433');
+ if(room==='living'&&treeGlow>.001&&treePosition){
+  const p=project(treePosition.x,treePosition.y,1);ctx.save();ctx.translate(p.x,p.y);ctx.scale(1,.5);
+  const r=170*view.scale,glow=ctx.createRadialGradient(0,0,1,0,0,r);
+  glow.addColorStop(0,`rgba(255,189,139,${.2*treeGlow})`);glow.addColorStop(1,'rgba(255,172,144,0)');ctx.fillStyle=glow;ctx.fillRect(-r,-r,r*2,r*2);ctx.restore();
+ }
+}
+/* One opening per contiguous run, sharing one wall plane and one frame.
+   The wall slab is behind the glass; dividers are inside the outer rails. */
+function windowRuns(grid){
+ const runs=[];for(let x=0;x<grid[0].length;){const token=grid[0][x];if(token!==2&&token!=='Balc'){x++;continue}
+ let end=x+1;while(grid[0][end]===token)end++;runs.push({x:x-.42,w:end-x-.16,balcony:token==='Balc'});x=end}return runs;
+}
+// Wall-local sliding panels: glass, rails and handle share the same anchor.
+function balconyDoorSpace(run,progress=balconySlide){
+ const rail=BALCONY_DOOR.rail,z=BALCONY_DOOR.sill,h=ROOM_HEIGHT.wall-BALCONY_DOOR.headGap-z;
+ const leafWidth=(run.w-2*rail)/2,t=Math.max(0,Math.min(1,progress)),slide=t*t*(3-2*t)*leafWidth;
+ const point=(u,height)=>project(run.x+rail+leafWidth-slide+u,-.275,height);
+ if(INSPECT&&(leafWidth<=rail*2||slide<0||slide+leafWidth>2*leafWidth+.001))geometryIssues.add('Balc: sliding panel outside track');
+ return{rail,z,h,leafWidth,slide,point};
+}
+function updateBalconyDoor(dt){
+ if(!reduceMotion&&INSPECT_BALCONY_SLIDE!==null){balconySlide=Math.max(0,Math.min(1,Number(INSPECT_BALCONY_SLIDE)||0));return}
+ const target=state.balcony?1:0,step=BALCONY_DOOR.speed*dt;
+ balconySlide=reduceMotion?target:balconySlide+Math.sign(target-balconySlide)*Math.min(Math.abs(target-balconySlide),step);
+}
+function drawBalconyDoor(run){
+ const {x,w}=run,space=balconyDoorSpace(run),{rail,z,h,leafWidth,slide}=space;
+ const frame=['#eddde7','#b2a0b5','#cfb8cd'];
+ // Recessed exterior view occupies a real opening in the wall, down to the sill.
+ polygon([project(x,-.46,z),project(x+w,-.46,z),project(x+w,-.46,z+h),project(x,-.46,z+h)],'#474357');
+ box(x,-.43,rail,.22,h,...frame,z);box(x+w-rail,-.43,rail,.22,h,...frame,z);
+ box(x,-.43,w,.22,z+1.5,...frame,0);box(x,-.43,w,.22,1.5,...frame,z+h-1.5);
+ for(const height of [z+1.55,z+h-1.8])line([project(x+rail,-.235,height),project(x+w-rail,-.235,height)],'#87768f',1);
+ const leaf=(start,y,moving)=>{
+  const p=moving?space.point:(u,height)=>project(start+u,y+.055,height);
+  polygon([p(rail,z+2),p(leafWidth-rail,z+2),p(leafWidth-rail,z+h-2),p(rail,z+h-2)],moving?'#9a9bb8':'#84869f');
+  box(start,y,rail,.06,h-3,...frame,z+1.5);box(start+leafWidth-rail,y,rail,.06,h-3,...frame,z+1.5);
+  for(const height of [z+1.5,z+h-3])box(start,y,leafWidth,.06,1.5,...frame,height);
+  line([p(rail+.06,z+h*.58),p(leafWidth-rail-.06,z+h*.82)],'#cad0df',.8);
+  if(moving){
+   const handleU=rail+.10;
+   line([p(handleU,z+22),p(handleU,z+30)],'#e3b6cb',2.2);
+   for(const height of [z+22,z+30])line([p(handleU,height),p(handleU+.045,height)],'#e3b6cb',1.5);
+  }
+ };
+ leaf(x+rail,-.40,false);leaf(x+rail+leafWidth-slide,-.33,true);
+}
+function drawWalls(){
+ const m=map()[0].length,n=map().length,runs=windowRuns(map());
+ const bedroom=room==='bedroom',wallBody=ROOM_HEIGHT.wall-ROOM_HEIGHT.cap;
+ const wallColors=bedroom?BEDROOM_ART.wall:['#f4eeee','#c4bccb','#e8dfe5'];
+ const trim=bedroom?BEDROOM_ART.ivory:['#fcf4f4','#d5c5d3','#e2d1df'];
+ // Cut the balcony doorway out of the wall instead of painting glass over it.
+ let cursor=-.5;
+ for(const run of runs.filter(r=>r.balcony)){
+  if(run.x>cursor)box(cursor,-.57,run.x-cursor,.13,wallBody,...wallColors);
+  const head=ROOM_HEIGHT.wall-BALCONY_DOOR.headGap;
+  box(run.x,-.57,run.w,.13,wallBody-head,...wallColors,head);cursor=run.x+run.w;
+ }
+ if(cursor<m-.5)box(cursor,-.57,m-.5-cursor,.13,wallBody,...wallColors);
+ box(-.5,-.57,m,.13,ROOM_HEIGHT.cap,...trim,wallBody);
+ box(-.57,-.5,.13,n,ROOM_HEIGHT.cutaway,...wallColors);
+ box(-.57,-.5,.13,n,2,...trim,ROOM_HEIGHT.cutaway);
+ for(const run of runs){
+  if(run.balcony){drawBalconyDoor(run);continue}
+  const {x,w}=run,z=13,h=31,rail=.065,frame=bedroom?trim:['#f4e6ed','#c4b5ca','#dfccd9'];
+  polygon([project(x,-.365,z),project(x+w,-.365,z),project(x+w,-.365,z+h),project(x,-.365,z+h)],bedroom?'#697583':'#9695b2');
+  box(x,-.42,rail,.10,h,...frame,z);box(x+w-rail,-.42,rail,.10,h,...frame,z);
+  box(x,-.42,w,.10,1.6,...frame,z);box(x,-.42,w,.10,1.6,...frame,z+h-1.6);
+  const panels=Math.max(1,Math.round(w/1.8));
+  for(let i=1;i<panels;i++)box(x+i*w/panels-.023,-.405,.046,.085,h-3.2,...frame,z+1.6);
+  box(x+rail,-.405,w-rail*2,.085,1,...frame,28);
+ }
+ if(bedroom)drawBedroomLights(m,wallBody);
+}
+function drawBedroomLights(width,wallBody){
+ const z=wallBody-2.6;
+ const strip=(y,low,high,color)=>polygon([project(-.44,y,low),project(width-.56,y,low),project(width-.56,y,high),project(-.44,y,high)],color);
+ strip(-.436,z-2.6,z+1.0,'#e46a5922');
+ strip(-.430,z-1.05,z+.65,'#f56e5755');
+ strip(-.423,z-.22,z+.16,'#c76064');
+ for(let x=-.20;x<width-.55;x+=.32){
+  polygon([project(x-.033,-.415,z-.38),project(x+.033,-.415,z-.38),project(x+.033,-.415,z+.34),project(x-.033,-.415,z+.34)],'#ffd5b1');
+ }
+}
+/* Merge exact matching, edge-connected tokens into furniture footprints.
+   Rectangular regions render as ONE solid object. Nonrectangular edits are
+   partitioned into exact rectangles, so art never covers walkable cutouts. */
+function buildFurniture(grid){
+ const visited=new Set(),result=[];
+ for(let y=0;y<grid.length;y++)for(let x=0;x<grid[y].length;x++){
+  const token=grid[y][x],key=x+','+y;
+  if(visited.has(key)||!isFurnitureToken(token))continue;
+  let w=1;while(grid[y][x+w]===token&&!visited.has((x+w)+','+y))w++;
+  let d=1;while(grid[y+d]&&Array.from({length:w},(_,i)=>grid[y+d][x+i]===token&&!visited.has((x+i)+','+(y+d))).every(Boolean))d++;
+  for(let j=0;j<d;j++)for(let i=0;i<w;i++)visited.add((x+i)+','+(y+j));
+  // The kitchen's shared base meets these appliance faces without recessed gaps.
+  const inset=token==='KitchenRun'||grid===LIVING_ROOM_MAP&&(token==='K-Sto'||token==='K-Si')?0:.02;
+  result.push({token,x:x-.5+inset,y:y-.5+inset,w:w-2*inset,d:d-2*inset,cx:x+(w-1)/2,cy:y+(d-1)/2});
+ }
+ return result;
+}
+// Built once from the editable grids; no flood-fill or color parsing per frame.
+const furniture={bedroom:buildFurniture(BEDROOM_MAP),living:buildFurniture(LIVING_ROOM_MAP)};
+const bindingIssues=new Set();
+function resolveInstances(definitions,groups=furniture,grids=maps,issues=bindingIssues){
+ const resolved=new Map(),idCounts=new Map(),groupBindings=new Map();
+ const report=message=>{issues.add(message);console.warn('Object binding: '+message)};
+ for(const spec of definitions)idCounts.set(spec.id,(idCounts.get(spec.id)||0)+1);
+ for(const spec of definitions){
+  if(typeof spec.id!=='string'||!spec.id||idCounts.get(spec.id)!==1){report('Missing or duplicate ID: '+spec.id);continue}
+  const [x,y]=Array.isArray(spec.tile)?spec.tile:[];
+  if(!groups[spec.room]||!Number.isInteger(x)||!Number.isInteger(y)||grids[spec.room]?.[y]?.[x]!==spec.token){report(spec.id+': missing room/token/tile');continue}
+  const matches=groups[spec.room].filter(g=>g.token===spec.token&&x>=g.x&&x<g.x+g.w&&y>=g.y&&y<g.y+g.d);
+  if(matches.length!==1){report(spec.id+': tile must resolve to one group');continue}
+  const group=matches[0];if(!groupBindings.has(group))groupBindings.set(group,[]);groupBindings.get(group).push(spec);
+ }
+ for(const [group,specs] of groupBindings){if(specs.length!==1){report('Multiple bindings for one group: '+specs.map(s=>s.id).join(', '));continue}const spec=specs[0];resolved.set(spec.id,{...spec,group})}
+ return resolved;
+}
+const objectInstances=resolveInstances(OBJECT_INSTANCES);
+function instanceAt(roomName,x,y){return [...objectInstances.values()].find(s=>s.room===roomName&&x>=s.group.x&&x<s.group.x+s.group.w&&y>=s.group.y&&y<s.group.y+s.group.d)||null}
+const bedroomChair=buildBedroomChair(objectInstances.get('bedroom.desk.main'));
+function buildBedroomChair(instance){
+ if(!instance)return null;
+ const S=furnitureSpace(instance.group,instance.room);
+ const seat=S.world(S.W/2,S.D+.39),exit=S.world(S.W/2,S.D+1.03);
+ const facing={l:'r',r:'l',u:'d',d:'u'}[furnitureFacing(instance.group,instance.room)];
+ const group={token:'DeskChair',x:seat.x-.35,y:seat.y-.35,w:.70,d:.70,cx:seat.x,cy:seat.y};
+ // Upholstery and the caster tips sit just inside the model's outer frame.
+ const collision={x:seat.x-.325,y:seat.y-.325,w:.65,d:.65};
+ const clear=(x,y,radius)=>[-radius,radius].every(dx=>[-radius,radius].every(dy=>
+  BEDROOM_MAP[Math.floor(y+dy+.5)]?.[Math.floor(x+dx+.5)]===0));
+ if(!clear(seat.x,seat.y,.35)||!clear(exit.x,exit.y,PLAYER_RADIUS)){
+  if(INSPECT)geometryIssues.add('Desk chair: needs floor under the chair and on the approach side');
+  return null;
+ }
+ return{instance,group,collision,seat,exit,facing};
+}
+
+// One continuous low table per numeric window run, contained in its blocked row.
+const windowTables=Object.fromEntries(Object.entries(maps).map(([name,grid])=>[name,windowRuns(grid).filter(run=>!run.balcony).map(run=>({token:'WindowTable',x:run.x,y:-.32,w:run.w,d:.76,cx:run.x+run.w/2,cy:.06}))]));
+const treePosition=findTile(LIVING_ROOM_MAP,'Ct');
+// Shared local anchor keeps each source attached to its nightstand lamp.
+const lampAnchor=S=>({u:S.W*.65,v:S.D*.36});
+const bedroomLampPositions=furniture.bedroom.filter(g=>g.token==='D').map(g=>{
+ const S=furnitureSpace(g),a=lampAnchor(S);return S.world(a.u,a.v);
+});
+// Derived once from the actual stove transform; each flame contributes to one light.
+const stoveLightPositions=furniture.living.filter(g=>g.token==='K-Sto').flatMap(g=>{
+ const S=furnitureSpace(g,'living');return [S.W*.28,S.W*.72].flatMap(u=>[S.D*.28,S.D*.72].map(v=>S.world(u,v)));
+});
+// Kitchen fillers retain numeric 1 collision semantics. Only adjacent kitchen
+// barriers join the appliance run; unrelated walls keep their original height.
+const kitchenFillers=new Set();
+for(let y=0;y<LIVING_ROOM_MAP.length;y++)for(let x=0;x<LIVING_ROOM_MAP[y].length;x++){
+ if(LIVING_ROOM_MAP[y][x]===1&&[[x-1,y],[x+1,y],[x,y-1],[x,y+1]].some(([u,v])=>['K-Sto','K-Si','F'].includes(LIVING_ROOM_MAP[v]?.[u])))kitchenFillers.add(x+','+y);
+}
+const kitchenRuns=buildFurniture(LIVING_ROOM_MAP.map((row,y)=>row.map((t,x)=>kitchenFillers.has(x+','+y)||t==='K-Sto'||t==='K-Si'?'KitchenRun':0))).map(g=>{
+ // Finish precisely against the fridge's existing inset body, not through it.
+ const right=Math.round(g.x+g.w+.5),left=Math.round(g.x-.5),y=Math.round(g.cy);
+ if(LIVING_ROOM_MAP[y]?.[right]==='F')g.w+=.02;
+ if(LIVING_ROOM_MAP[y]?.[left]==='F'){g.x-=.02;g.w+=.02}
+ return g;
+});
+function drawKitchenRun(){
+ for(const g of kitchenRuns){
+  box(g.x,g.y,g.w,g.d,KITCHEN_HEIGHT-1,'#eae3e1','#aaa0a7','#c9b9bf');
+  box(g.x,g.y,g.w,g.d,1,'#e7d9df','#c1abbc','#d5c0cc',KITCHEN_HEIGHT-1);
+ }
+}
+function furnitureFacing(g,roomName=room){
+ const override=FURNITURE_FACING[roomName][g.token];if(override)return override;
+ if(g.token.startsWith('Sofa-'))return g.token.slice(-1);
+ const dx=(maps[roomName][0].length-1)/2-g.cx,dy=(maps[roomName].length-1)/2-g.cy;
+ return Math.abs(dx)>Math.abs(dy)?(dx>0?'r':'l'):(dy>0?'d':'u');
+}
+/* Canonical furniture fronts face local +V. Rotate ALL details with the
+   furniture, including screens, cabinet doors, handles and sofa backrests. */
+function furnitureSpace(g,roomName=room,facing=furnitureFacing(g,roomName)){
+ const swapped=facing==='r'||facing==='l';
+ const W=swapped?g.d:g.w,D=swapped?g.w:g.d;
+ const world=(u,v)=>facing==='d'?{x:g.x+u,y:g.y+v}:facing==='u'?{x:g.x+g.w-u,y:g.y+g.d-v}:facing==='r'?{x:g.x+v,y:g.y+g.d-u}:{x:g.x+g.w-v,y:g.y+u};
+ const local=(x,y)=>facing==='d'?{u:x-g.x,v:y-g.y}:facing==='u'?{u:g.x+g.w-x,v:g.y+g.d-y}:facing==='r'?{u:g.y+g.d-y,v:x-g.x}:{u:y-g.y,v:g.x+g.w-x};
+ const frontVisible=facing==='d'||facing==='l';
+ const p=(u,v,z=0)=>{const q=world(u,v);return project(q.x,q.y,z)};
+ const b=(u,v,w,d,h,z,top='#ece1de',left='#baacac',right='#d3c2c1')=>{
+  if(INSPECT&&(![u,v,w,d,h,z].every(Number.isFinite)||w<=0||d<=0||h<=0))geometryIssues.add(g.token+': invalid dimensions');
+  const overhang=g.token==='K'?.03:.001;
+  if(INSPECT&&(u<-overhang||v<-overhang||u+w>W+overhang||v+d>D+overhang))geometryIssues.add(g.token+': component outside footprint');
+  const a=world(u,v),c=world(u+w,v+d);box(Math.min(a.x,c.x),Math.min(a.y,c.y),Math.abs(a.x-c.x),Math.abs(a.y-c.y),h,top,left,right,z);
+ };
+ const surface=(u,v,w,d,z,color)=>polygon([p(u,v,z),p(u+w,v,z),p(u+w,v+d,z),p(u,v+d,z)],color);
+ const front=(u,z,w,h,color,v=D+FIT.panelDepth)=>{
+  if(INSPECT&&(u<0||u+w>W+.001||w<=0||h<=0))geometryIssues.add(g.token+': panel outside frame');
+  if(frontVisible)polygon([p(u,v,z),p(u+w,v,z),p(u+w,v,z+h),p(u,v,z+h)],color);
+ };
+ const stroke=(coords,color,width=1)=>line(coords.map(c=>p(...c)),color,width);
+ return{W,D,p,b,surface,front,stroke,world,local,frontVisible};
+}
+// Shared low console proportions for the TV stand and the window tables.
+function drawLowStand(S){
+ const bedroom=room==='bedroom';
+ const base=bedroom?['#f0e2cf','#baaa98','#d1c2ad']:['#ddd3dc','#9e8a9f','#bdabbe'];
+ const top=bedroom?BEDROOM_ART.ivory:['#e7dce5','#b7a5b9','#cebdcf'];
+ S.b(0,0,S.W,S.D,11,0,...base);
+ S.b(0,0,S.W,S.D,1,11,...top);
+}
+function drawRecordPlayer(S,u,v,w,d,z){
+ const h=2.6,top=z+h;
+ S.b(u,v,w,d,h,z,'#6d5c76','#4e4259','#5c4c66');
+ const disc=(cx,cy,rx,ry,height,color)=>polygon(Array.from({length:20},(_,i)=>{
+  const a=i*Math.PI/10;return S.p(cx+Math.cos(a)*rx,cy+Math.sin(a)*ry,height);
+ }),color);
+ const cx=u+w*.40,cy=v+d*.5;
+ disc(cx,cy,w*.28,d*.38,top+.15,'#302b3c');disc(cx,cy,w*.085,d*.115,top+.22,'#dbaac2');
+ S.stroke([[u+w*.85,v+d*.2,top+.3],[u+w*.80,v+d*.72,top+.3],[u+w*.54,v+d*.65,top+.3]],'#dec7d7',1);
+}
+function drawDesk(S,slab=false,black=false){
+ const {W,D,b}=S,colors=black?['#36333d','#1c1a23','#292630']:['#f0e9ed','#b9adb9','#dbced9'];
+ b(0,0,W,D,3,20,...colors);
+ if(slab){
+  for(const u of [.06,W-.18])b(u,.06,.12,D-.12,20,0,...colors);
+ }else{
+  for(const u of [.07,W-.17])for(const v of [.07,D-.17])b(u,v,.10,.10,20,0,...colors);
+ }
+}
+function drawWhiteboard(S,instance){
+ const {W,D,b,p,stroke}=S,v=D/2,metal=['#c6c8d0','#858392','#a2a0af'];
+ for(const u of [.20,W-.20]){
+  b(u-.11,.08,.22,D-.16,1.5,1.5,...metal);
+  for(const depth of [.10,D-.20])b(u-.08,depth,.16,.10,1.5,0,'#696473','#514b5d','#60586c');
+  b(u-.035,v-.04,.07,.08,18,3,...metal);
+ }
+ b(.05,v-.06,W-.10,.12,28,20,...metal);
+ // Both faces are real surfaces on opposite sides of one thin frame.
+ for(const side of [-1,1]){
+  const face=v+side*.063;
+  polygon([p(.12,face,21.5),p(W-.12,face,21.5),p(W-.12,face,46.5),p(.12,face,46.5)],side===1?'#f5f0ee':'#e6e5e8');
+  if(instance?.activity==='drawing'&&(side===1?S.frontVisible:!S.frontVisible))drawBoardInk(S,instance,side,face);
+  const tray=side===1?v+.06:v-.18;
+  b(.13,tray,W-.26,.12,.8,19.4,...metal);
+  for(let i=0;i<3;i++)stroke([[.24+i*.22,tray+.06,20.3],[.38+i*.22,tray+.06,20.3]],['#8d596e','#607489','#585463'][i],1.3);
+ }
+}
+function drawGuitar(S){
+ const {W,D,b,p,stroke}=S,c=W/2,back=D*.52,face=back+.14;
+ const wood=['#d8ab79','#8a6047','#b17c54'];
+ b(.14,.12,W-.28,D-.24,1.5,0,'#766979','#514858','#62566b');
+ b(c-.04,.18,.08,.12,24,1.5,'#827889','#5f546b','#71647e');
+ for(const u of [c-.19,c+.12])b(u,back-.04,.07,.23,3,1.5,...wood);
+ const rows=[[4,.15],[7,.28],[13,.30],[18,.16],[22,.23],[25,.12]];
+ for(let i=1;i<rows.length;i++){
+  const [z0,r0]=rows[i-1],[z1,r1]=rows[i];
+  for(const [depth,color] of [[back,'#a77552'],[face,wood[0]]])polygon([p(c-r0,depth,z0),p(c+r0,depth,z0),p(c+r1,depth,z1),p(c-r1,depth,z1)],color);
+  for(const hand of [-1,1])polygon([p(c+hand*r0,back,z0),p(c+hand*r0,face,z0),p(c+hand*r1,face,z1),p(c+hand*r1,back,z1)],hand===1?wood[2]:wood[1]);
+ }
+ b(c-.045,back,.09,.14,17,25,'#87634d','#4e3c39','#705144');
+ b(c-.065,back-.01,.13,.16,4,42,...wood);
+ polygon(Array.from({length:20},(_,i)=>{const a=i*Math.PI/10;return p(c+Math.cos(a)*.085,face+.004,18+Math.sin(a)*3)}),'#493b3d');
+ b(c-.12,face,.24,.025,1.2,10,'#80604b','#4e3b37','#6b4e40');
+ for(let i=0;i<6;i++){const u=c+(i-2.5)*.009;stroke([[u,face+.03,11.2],[u,face+.03,43]],'#dfd0ad',.35)}
+ for(const z of [28,31,34,37,40])stroke([[c-.04,face+.004,z],[c+.04,face+.004,z]],'#bca895',.5);
+}
+function furnitureDisc(S,u,v,z,rx,ry,color,vertical=false){
+ const points=Array.from({length:16},(_,i)=>{
+  const a=i*Math.PI/8,du=Math.cos(a)*rx,dv=Math.sin(a)*ry;
+  return vertical?S.p(u+du,v,z+dv):S.p(u+du,v+dv,z);
+ });
+ polygon(points,color);
+}
+function drawBedroomDesk(S){
+ const {W,D,b,surface,front,stroke}=S;
+ const metal=['#b9a293','#645b58','#8c7e75'];
+ for(const u of [.15,W-.21]){
+  // Slim trestles run across the short ends, leaving the middle open for knees.
+  for(const v of [.13,D-.17])b(u,v,.06,.06,21,0,...metal);
+  b(u,.13,.06,D-.24,1.4,3,...metal);
+  stroke([[u+.025,.19,4],[u+.025,D-.14,19]],'#a89585',1.4);
+ }
+ b(.02,.03,W-.04,D-.06,1.35,21,'#62636a','#31323b','#454955');
+ surface(.035,.045,W-.07,D-.09,22.38,'#9cbac077');
+ stroke([[.055,D-.045,22.45],[W-.055,D-.045,22.45]],'#bbd2ce',.6);
+ b(.23,.14,W-.46,.28,.9,26,...BEDROOM_ART.ivory);
+ for(const u of [.25,W-.31])b(u,.15,.06,.25,3.6,22.35,...BEDROOM_ART.ivory);
+ const panel=Math.min(W-.40,1.22),left=(W-panel)/2;
+ b(W/2-.13,.215,.26,.12,.65,26.9,'#41424b','#23262b','#2e323a');
+ b(W/2-.04,.25,.08,.05,3.1,27.55,'#46464b','#28292f','#34343b');
+ b(left,.205,panel,.075,14,29.3,'#4d4d56','#26272d','#34343b');
+ front(left+.035,30.1,panel-.07,12.4,'#232a35',.284);
+ front(left+.07,30.55,(panel-.10)*.35,11.4,'#343c4855',.286);
+ surface(W/2-.011,.285,.022,.019,29.65,'#92bda8');
+ const matU=.23,matW=W-.51,matV=D-.38;
+ surface(matU,matV,matW,.29,22.45,'#e4aabd');
+ surface(matU+.04,matV+.025,matW-.08,.24,22.49,'#f4c7ce');
+ for(const u of [matU+.16,matU+matW-.16]){
+  for(const dx of [-.048,.048])furnitureDisc(S,u+dx,matV+.153,22.52,.025,.035,'#4d4350');
+  furnitureDisc(S,u,matV+.208,22.55,.066,.070,'#fff1e3');
+  for(const dx of [-.025,.025])furnitureDisc(S,u+dx,matV+.207,22.58,.016,.024,'#4d4350');
+ }
+ furnitureDisc(S,.15,.51,22.55,.085,.068,'#eaa2b2');
+ b(.135,.50,.031,.031,2.3,22.5,'#f2aabd','#a76b83','#cd899e');
+ b(.10,.477,.10,.077,3.7,24.7,'#ffbeca','#b67991','#e69aac');
+ for(let i=0;i<4;i++)stroke([[.109,.557,25.9+i*.50],[.191,.557,25.9+i*.50]],'#98677b',.48);
+ b(W-.16,.15,.061,.063,15.4,22.4,'#666066','#36333d','#45434a');
+ b(W-.185,.15,.10,.36,1.3,37.4,'#5b555b','#3a363c','#454148');
+ surface(W-.172,.35,.075,.145,38.71,'#f8e4be');
+ furnitureDisc(S,W-.15,D-.20,22.55,.092,.09,'#8b6753');
+ b(W-.215,D-.26,.13,.12,3.7,22.55,'#7ca5c3','#274363','#3b668e');
+ furnitureDisc(S,W-.15,D-.20,26.3,.054,.049,'#29415a');
+ stroke([[W-.084,D-.21,25.3],[W-.038,D-.21,25.18],[W-.039,D-.21,23.55],[W-.081,D-.21,23.5]],'#527ea3',1.3);
+}
+
+const DESK_SEAT_HEIGHT=13.5;
+function drawDeskChair(chair){
+ const S=furnitureSpace(chair.group,'bedroom',chair.facing);
+ const {p,b,stroke}=S,leather=['#59545d','#27252e','#403940'];
+ furnitureDisc(S,.35,.34,.10,.335,.32,'#2c232552');
+ for(let i=0;i<5;i++){
+  const a=i*Math.PI*2/5+.3,u=.35+Math.cos(a)*.262,v=.34+Math.sin(a)*.262;
+  stroke([[.35,.34,3.2],[u,v,2.0]],'#454047',2.6);
+  b(u-.035,v-.035,.07,.07,1.85,0,'#5e5659','#272530','#36323a');
+ }
+ b(.298,.292,.104,.104,8.1,2.1,'#716970','#39343b','#565058');
+ b(.07,.11,.56,.48,3.3,DESK_SEAT_HEIGHT-3.3,...leather);
+ const panel=(v,color)=>polygon([
+  p(.06,v,11),p(.64,v,11),p(.657,v,27),p(.61,v,30),p(.09,v,30),p(.043,v,27)
+ ],color);
+ panel(.12,'#3d3746');panel(.044,'#48404b');
+ polygon([p(.043,.044,27),p(.09,.044,30),p(.09,.12,30),p(.043,.12,27)],'#665b65');
+ polygon([p(.09,.044,30),p(.61,.044,30),p(.61,.12,30),p(.09,.12,30)],'#6a616a');
+ stroke([[.09,.039,13],[.066,.039,26.8],[.11,.039,29],[.59,.039,29],[.633,.039,26.8],[.61,.039,13]],'#74646b',.7);
+ // Only the camera-facing upholstery receives front-facing tuft detail.
+ if(S.frontVisible)for(const u of [.18,.35,.52])for(const z of [20,25])furnitureDisc(S,u,.124,z,.025,.65,'#25202a',true);
+ for(const u of [.054,.555]){
+  b(u,.18,.091,.39,5.8,DESK_SEAT_HEIGHT-.4,...leather);
+  b(u,.20,.091,.32,1.0,18.9,'#645760','#322a35','#443944');
+  stroke([[u+.018,.203,20.02],[u+.018,.51,20.02]],'#837078',.65);
+ }
+ stroke([[.14,.59,13.62],[.56,.59,13.62]],'#7f6b72',.8);
+}
+
+function drawVanity(S){
+ const {W,D,b,surface,front,stroke,p}=S,ivory=BEDROOM_ART.ivory;
+ b(.035,.075,W-.07,D-.15,20,1,...ivory);
+ for(const u of [.06,W-.18])for(const v of [.10,D-.21])b(u,v,.12,.11,1.7,0,...ivory);
+ b(.025,.06,W-.05,D-.1,1.25,21,...ivory);
+ for(const u of [.025,W-.077])b(u,.07,.052,D-.18,2.1,22.25,...ivory);
+ b(.077,.07,W-.154,.052,2.9,22.25,...ivory);
+ for(let i=0;i<3;i++){
+  const z=2.2+i*6.05,v=D-.071;
+  front(.093,z,W-.186,5.72,'#e5d7c7',v+.008);
+  if(S.frontVisible)for(const u of [W*.25,W*.75])furnitureDisc(S,u,v+.035,z+2.9,.049,1,'#5c4840',true);
+  // The reveal wraps around the side lip and is visible from the cutaway.
+  stroke([[.032,D-.148,z],[.032,D-.066,z]],'#a38c79',.7);
+ }
+ const gold=['#e4c287','#917044','#ba965a'];
+ b(W*.43,.105,W*.49,.092,25.6,22.25,...gold);
+ const inset=(u,w,z,h,v,color)=>polygon([p(u,v,z),p(u+w,v,z),p(u+w,v,z+h),p(u,v,z+h)],color);
+ inset(W*.454,W*.442,24.05,21.75,S.frontVisible?.199:.101,S.frontVisible?'#aebfc0':'#8f735d');
+ if(S.frontVisible)stroke([[W*.51,.201,25.4],[W*.72,.201,44.8]],'#edf5e18a',1.2);
+ const roundU=W*.19;
+ furnitureDisc(S,roundU,.53,22.31,.12,.095,'#c4c1be');
+ b(roundU-.021,.508,.042,.044,5.4,22.31,'#e9e2da','#807976','#ada6aa');
+ const roundMirror=(radius,height,offset,color)=>polygon(Array.from({length:18},(_,i)=>{
+  const a=i*Math.PI/9,du=Math.cos(a)*radius;
+  return p(roundU+du*.65,.53+du*.76+offset,32.4+Math.sin(a)*height);
+ }),color);
+ roundMirror(.21,5.7,0,'#e9ddd5');
+ roundMirror(.18,4.8,.007,'#a4b5bb');
+ stroke([[roundU-.07,.457,30],[roundU+.07,.617,35.5]],'#dee8e68a',.7);
+ b(W*.345,.31,.27,.062,10.1,22.25,'#efe2da','#bdb4ba','#dbced0');
+ inset(W*.361,.208,23.18,8.1,S.frontVisible?.374:.307,'#adb0b9');
+ surface(W*.28,.60,W*.54,.245,22.34,'#a47c7b55');
+ b(W*.28,.60,W*.54,.025,2.3,22.35,'#d6ced090','#cbbcc07a','#e1d5d88a');
+ b(W*.28,.82,W*.54,.025,2.3,22.35,'#e4d4cf8a','#cbbcc066','#e1d5d888');
+ for(const [u,v,h,color] of [[.32,.70,3.6,'#c98489'],[.39,.74,5.1,'#e8cbaa'],[.48,.68,2.3,'#876a75'],[.65,.71,4.2,'#b17167'],[.74,.68,3.5,'#cbb49e']]){
+  b(W*u,v,.085,.06,h,22.35,color,shade(color,-35),shade(color,-18));
+  b(W*u+.017,v+.009,.051,.043,.65,22.35+h,'#b6a2a4','#665760','#8e7681');
+ }
+ for(const [u,tip] of [[.51,.505],[.56,.577],[.61,.632]]){
+  stroke([[W*u,.71,22.8],[W*tip,.716,28.8]],'#9b7675',1.15);
+  stroke([[W*tip,.716,28.4],[W*tip,.718,29.4]],'#694f4b',2.2);
+ }
+}
+
+const BEDSILL_PLUSHIES=[
+ {id:'sponge',along:.088,depth:.19,size:.79},
+ {id:'bear',along:.252,depth:.182,size:.88},
+ {id:'bean',along:.408,depth:.251,size:.74},
+ {id:'lion',along:.566,depth:.185,size:.84},
+ {id:'penguin',along:.731,depth:.181,size:.84},
+ {id:'beady',along:.900,depth:.181,size:.87}
+];
+const plushArtCache=new Map();
+function paintPlush(P,id){
+ const {oval,shape,stroke,context:c,color}=P;
+ const ink='#33262e',cream='#fff0d7';
+ const eyes=(spread,y,r=1)=>{
+  for(const side of [-1,1]){
+   oval(side*spread,y,r,r*1.07,ink);
+   if(r>.8)oval(side*spread-.31,y-.36,.25,.26,'#fff2d8');
+  }
+ };
+ const muzzle=(y,fill,nose)=>{
+  oval(0,y,4.1,2.8,fill);oval(0,y-1,.99,.68,nose);
+  stroke([[-2,y+.6],[-1,y+1.1],[0,y+.2],[1,y+1.1],[2,y+.6]],nose,.50);
+ };
+ if(id==='bean'){
+  oval(0,-5.4,10.3,5.6,'#d5a875');oval(-.65,-6.3,9.4,5.15,'#ead09b');
+  for(const side of [-1,1])oval(side*5.5,-.85,2.2,.95,'#dbb985');
+  eyes(3.4,-5.6,.63);oval(-.1,-4.6,1.8,1.18,'#f8cdd5');
+  stroke([[-7.3,-7.3],[-5.7,-8.8],[-2.9,-9.65]],'#f8e0ad',.65);return;
+ }
+ if(id==='beady'||id==='bear'){
+  const sweater=id==='bear',fur=sweater?'#b5a08b':'#e9b48b',light=sweater?'#c9b49d':'#f5c6a0';
+  const shadow=sweater?'#8e7666':'#c68966';
+  oval(0,-7.2,7.15,6.5,fur);
+  for(const side of [-1,1]){
+   oval(side*7.2,-9.4,2.75,4.25,sweater?'#305780':fur);
+   oval(side*8.2,-7.3,1.61,1.9,light);
+   oval(side*5.06,-2.86,3.55,2.86,shadow);oval(side*5.30,-2.70,2.97,2.47,light);
+   if(sweater){oval(side*5.4,-2.25,1.40,.61,'#695146');for(const off of [-.86,0,.86])oval(side*5.4+off,-3.3,.35,.36,'#695146')}
+   oval(side*6.1,-20.7,2.65,2.72,fur);oval(side*6.25,-20.8,1.25,1.58,shadow);
+  }
+  if(sweater){
+   shape([[-6.95,-12.5],[-5.65,-14],[5.65,-14],[7,-12],[6.2,-7.3],[-6.1,-7.3]],'#396d9f');
+   stroke([[-5.8,-7.7],[5.7,-7.7]],'#26476e',.9);
+   for(let u=-5.5;u<=5.5;u+=1.35)stroke([[u,-9.8],[u,-7.9]],'#6994b7',.34);
+  }
+  oval(0,-17.9,7.24,6.48,light);
+  oval(1.15,-20.7,4.17,2.49,light);
+  eyes(3.08,-18.3,1.03);
+  muzzle(-15.2,sweater?'#e0c6a3':'#f7d1ad',sweater?'#694c3e':'#4e3335');
+  if(!sweater){
+   shape([[-.5,-11.8],[-4.1,-13],[-4.2,-9.8],[-.5,-10.7],[4,-9.8],[4.2,-13]],'#dfad54');
+   shape([[-.4,-10.9],[-2.2,-5.1],[-.8,-6.0],[.1,-5.5],[.6,-10.7],[2.6,-6.2],[3.2,-6.7],[1,-11.0]],'#f5cb73');
+   oval(0,-11.3,1.2,.86,'#fce093');oval(-8.30,-7,2.1,1.53,'#a27d8d');
+  }
+  return;
+ }
+ if(id==='lion'){
+  oval(0,-5.4,10.6,5.6,'#51404c');
+  shape([[-9.6,-9.7],[0,-11.5],[9.6,-9.7],[8.3,-7.1],[0,-9],[-8.4,-7.1]],'#d85e5b');
+  oval(5.1,-5.1,1.4,1.55,'#c28e4e');oval(5.1,-5.2,.8,.9,'#ad6358');
+  stroke([[0,-8.7],[0,-1.4]],'#7a5962',.56);
+  for(const side of [-1,1])oval(side*8,-18.55,2.0,2.15,'#f0b76a');
+  const mane=Array.from({length:34},(_,i)=>{
+   const a=i*2*Math.PI/34, r=i%2===0?1:([.88,.94,.83][i%3]);
+   return[Math.cos(a)*11*r,-17.15+Math.sin(a)*8.95*r];
+  });
+  shape(mane,'#a7653a');oval(-.8,-17.9,9.3,7.55,'#d28b4d');
+  oval(0,-17.55,7.55,5.79,'#f6c178');eyes(3.25,-18.0,.99);muzzle(-15.2,cream,ink);
+  for(const side of [-1,1])stroke([[side*8,-21],[side*8.7,-18.9],[side*9.1,-17.3]],'#e2a45e',.65);
+  return;
+ }
+ if(id==='penguin'){
+  oval(0,-6.4,8.25,6,'#75777e');oval(0,-5.6,5.65,4.75,'#f4e5d6');
+  for(const side of [-1,1]){
+   oval(side*4.65,-1.15,2.45,1.22,'#f6bf5c');
+   oval(side*7.6,-9.5,2.95,2.42,'#a26549');
+  }
+  oval(0,-10.5,7.8,4.75,'#b47852');oval(0,-17.65,7.9,8.2,'#b47852');
+  oval(0,-17.65,6.37,6.64,'#7d4f41');oval(0,-17.2,5.48,5.56,'#f8eedf');
+  shape([[-4.84,-20],[0,-22.6],[4.6,-20],[1.7,-18],[-.9,-18]],'#61606a');
+  eyes(3.22,-18.65,.88);oval(0,-16.12,2.2,1.49,'#ffcc62');
+  stroke([[-5.6,-21.7],[-2.9,-24.55],[.2,-25],[3.7,-23.75]],'#e1a475',1);
+  oval(.65,-9.7,1.44,1.38,'#e9ab72');for(const side of [-1,1])oval(.65+side*1.07,-10.65,.45,.46,'#e9ab72');
+  stroke([[-2.5,-12.55],[-2.76,-9.55],[ -3.48,-8.65]],cream,.77);
+  stroke([[2.47,-12.62],[2.71,-9.47],[1.5,-8.16]],cream,.77);return;
+ }
+ const yellow='#f1ce60';
+ for(const side of [-1,1]){oval(side*4.53,-1.65,2.5,1.7,'#61504b');oval(side*9.17,-9.4,2.38,2.27,yellow)}
+ c.beginPath();c.roundRect(-9.65,-24,19.3,17,2.65);c.fillStyle=color(yellow);c.fill();
+ shape([[-8.55,-8.6],[8.55,-8.6],[8,-3.1],[-8,-3.1]],'#a36d50');
+ shape([[-8.55,-8.9],[8.55,-8.9],[8.35,-6.5],[-8.35,-6.5]],cream);
+ shape([[-.9,-7],[.9,-7],[1.31,-4.65],[0,-4],[-1.25,-4.65]],'#c85852');
+ for(const side of [-1,1]){
+  oval(side*3.55,-17.45,2.32,1.76,'#c5ac57');stroke([[side*3.55-1.32,-17.49],[side*3.55,-17.13],[side*3.55+1.33,-17.5]],ink,.77);
+ }
+ stroke([[-4.7,-13.85],[-2.15,-12.83],[1.24,-12.86],[4.6,-13.79]],'#983f43',1.24);
+ for(const [u,y] of [[-7.15,-21.4],[6.8,-22.05],[7.3,-11.2],[-6.4,-10.24]])oval(u,y,.93,.66,'#daa94d');
+}
+
+function drawBedsillPlush(S,plush,ledgeTop){
+ const u=S.W*plush.along,v=plush.depth,anchor=S.p(u,v,ledgeTop+.20);
+ const size=plush.size*Math.min(1,S.W/2.8);
+ furnitureDisc(S,u,v,ledgeTop+.035,.147*size,.086*size,'#78534860');
+ // Each soft toy is one small, lit, transparent illustration in the depth queue.
+ // Bucket the lamp color so the transition can reuse a bounded set of paintings.
+ const tint=litColor('#808080',anchor),bucket=[1,3,5].map(i=>Math.round(parseInt(tint.slice(i,i+2),16)/7)).join('/');
+ const key=plush.id+':'+bucket;
+ if(!plushArtCache.has(key)){
+  const bitmap=document.createElement('canvas');bitmap.width=104;bitmap.height=112;
+  const c=bitmap.getContext('2d');c.scale(4,4);c.translate(13,27);
+  paintPlush(characterPainter(c,color=>litColor(color,anchor)),plush.id);
+  if(plushArtCache.size>=30)plushArtCache.delete(plushArtCache.keys().next().value);
+  plushArtCache.set(key,bitmap);
+ }
+ const art=plushArtCache.get(key),scale=view.scale*size;
+ const corners=[[-13,-27],[13,-27],[13,1],[-13,1]].map(([dx,dy])=>scenePoint({x:anchor.x+dx*scale,y:anchor.y+dy*scale},anchor));
+ enqueue(corners,()=>ctx.drawImage(art,anchor.x-13*scale,anchor.y-27*scale,26*scale,28*scale));
+}
+
+function drawAnniversaryBed(S){
+ const {W,D,b,front,surface,stroke}=S,{ivory,quilt,throw:throwColors}=BEDROOM_ART;
+ const ledgeTop=40.5;
+ b(0,0,W,D,9,0,...ivory);
+ b(.05,.14,W-.10,D-.19,7,9,'#f4dfd2','#c3a597','#e4c7b5');
+ b(.055,.04,W-.11,.142,37.5,0,...ivory);
+ for(const u of [.035,W-.141])b(u,.026,.106,.199,39,0,...ivory);
+ b(.026,.028,W-.052,.229,1.25,38.1,...ivory);
+ b(.016,.018,W-.032,.302,1.25,39.25,...ivory);
+ if(S.frontVisible)for(const center of [W*.265,W*.735]){
+  const half=W*.183,v=.187;
+  front(center-half,20,half*2,15,'#dfc9b2',v);
+  const arch=(width,height,color)=>{
+   const points=Array.from({length:13},(_,i)=>[center-Math.cos(i*Math.PI/12)*width,v+.004,29+Math.sin(i*Math.PI/12)*height]);
+   stroke([[center-width,v+.004,20.7],...points,[center+width,v+.004,20.7]],color,.82);
+  };
+  arch(half*.92,7.3,'#b99680');arch(half*.74,5.75,'#fff1dc');
+ }
+ const pillows=(W-.44)/2;
+ for(const [i,color] of ['#e9b2a3','#d99078'].entries()){
+  const u=.135+i*(pillows+.15);
+  b(u+.026,.205,pillows-.05,.215,6.5,16,color,shade(color,-31),shade(color,-17));
+  b(u,.388,pillows,.33,3.5,16,'#f5c6b3','#c89289','#e7a99b');
+  stroke([[u+.047,.487,19.54],[u+pillows-.044,.487,19.54]],'#ffe0cb',.55);
+ }
+ const left=.058,width=W-left*2,top=.82,end=D-.06,length=end-top;
+ if(length>.06){
+  b(left,top,width,length,1.12,16,...throwColors);
+  const hem=Math.min(.20,length*.18),quiltEnd=end-hem;
+  b(left+.024,top,width-.048,quiltEnd-top,1.34,17.12,...quilt);
+  const plaidZ=18.48;
+  for(let u=left+.12;u<W-left-.1;u+=.36){
+   surface(u,top,Math.min(.153,W-left-.025-u),quiltEnd-top,plaidZ,'#57253566');
+   stroke([[u+.045,top,plaidZ+.016],[u+.045,quiltEnd,plaidZ+.016]],'#df837a77',.55);
+  }
+  for(let v=top+.08;v<quiltEnd-.08;v+=.50){
+   surface(left+.024,v,width-.048,Math.min(.208,quiltEnd-v),plaidZ+.03,'#5a203769');
+   stroke([[left+.025,v+.08,plaidZ+.05],[W-left-.025,v+.08,plaidZ+.05]],'#ec9f8566',.55);
+   stroke([[left+.03,v+.183,plaidZ+.06],[W-left-.03,v+.183,plaidZ+.06]],'#f5b59744',.68);
+  }
+  stroke([[left+.05,quiltEnd-.033,18.55],[W-left-.05,quiltEnd-.033,18.55]],'#dc8479',.85);
+  const hemCenter=(quiltEnd+end)/2;
+  stroke([[left+.06,hemCenter,17.18],[left+width-.06,hemCenter,17.18]],'#ba8f6f',.66);
+ }
+ for(const plush of BEDSILL_PLUSHIES)drawBedsillPlush(S,plush,ledgeTop);
+}
+
+function drawFurniture(g){
+ const {W,D,p,b,surface,front,stroke,world,frontVisible}=furnitureSpace(g),k=base(g.token);
+ const white=room==='bedroom'?BEDROOM_ART.ivory:['#eae3e1','#aaa0a7','#c9b9bf'],pink=['#dba5bc','#936b87','#b7849e'];
+ const body=(h,z=0,colors=white)=>b(0,0,W,D,h,z,...colors);
+ const handle=(u,v,z,width=.16)=>{
+  if(INSPECT&&(u<FIT.frame||u+width>W-FIT.frame))geometryIssues.add(g.token+': handle outside frame');
+  if(frontVisible)stroke([[u,v,z],[u+width,v,z]],'#d3af94',1.7);
+ };
+ switch(k){
+ case'BlackDesk':drawDesk(furnitureSpace(g),false,true);break;
+ case'WhiteTable':drawDesk(furnitureSpace(g),true);break;
+ case'CornerTable':drawDesk(furnitureSpace(g));break;
+ case'Whiteboard':drawWhiteboard(furnitureSpace(g),instanceAt(room,g.cx,g.cy));break;
+ case'Guitar':drawGuitar(furnitureSpace(g));break;
+ case'B':{
+  // Hollow carcass: books sit INSIDE the shelves, with no solid front hiding them.
+  const H=ROOM_HEIGHT.wall,side=.08,rows=5,shelf=1.6,spacing=(H-3)/rows;
+  b(0,0,W,.08,H,0,...white);b(0,.08,side,D-.08,H,0,...white);b(W-side,.08,side,D-.08,H,0,...white);
+  b(side,.08,W-2*side,D-.08,2,H-2,...white);
+  const count=Math.max(2,Math.floor((W-.24)/.25)),slot=(W-.24)/count;
+  for(let row=0;row<rows;row++){
+   const z=1+row*spacing;
+   b(side,.08,W-2*side,D-.08,shelf,z,...white);
+   for(let i=0;i<count;i++){
+    const u=.12+i*slot,width=slot*(i%4===0?.62:.78),height=spacing-shelf-1.2-(i+row)%3;
+    const color=['#c79bb2','#eee0cf','#a8a1c0','#d5bac4','#8e9c97'][(i+row*2)%5];
+    const v=Math.max(.1,D-.43),depth=D-v-.045;
+    b(u,v,width,depth,height,z+shelf,color,color,color);
+    if(frontVisible)stroke([[u+.02,D-.042,z+shelf+height-2],[u+width-.02,D-.042,z+shelf+height-2]],'#e9d9c7',.65);
+    if(INSPECT&&z+shelf+height>H-2)geometryIssues.add('B: book intersects shelf above');
+   }
+  }break;
+ }
+ case'M':drawVanity(furnitureSpace(g));break;
+ case'L':drawBedroomDesk(furnitureSpace(g));break;
+ case'Bed':drawAnniversaryBed(furnitureSpace(g));break;
+ case'C':{
+  // Ceiling-height built-in: a flush surround and two recessed sliding leaves.
+  // Preserve its inward facing; the camera correctly sees the finished back.
+  const H=ROOM_HEIGHT.wall,frame=FIT.frame,innerWidth=W-2*frame,span=innerWidth/2;
+  b(0,0,W,.08,H,0,...white);
+  b(0,.08,frame,D-.08,H,0,...white);b(W-frame,.08,frame,D-.08,H,0,...white);
+  for(const z of [0,H-2])b(frame,.08,innerWidth,D-.08,2,z,...white);
+  for(let i=0;i<2;i++){
+   const u=frame+i*span,width=span-FIT.gap/2,v=D-.10+i*.035;
+   b(u,v,width,.035,H-4,2,i?'#e7d3dc':'#d6bdc9','#baa4b6','#cbb2c2');
+   const handleU=i?u+.12:u+width-.12,handleV=v+.035+FIT.panelDepth;
+   if(frontVisible){
+    stroke([[handleU,handleV,23],[handleU,handleV,33]],'#d3af94',2);
+    for(const z of [23,33])stroke([[handleU-.035,handleV,z],[handleU+.035,handleV,z]],'#d3af94',1.3);
+   }
+   if(INSPECT&&(handleU<=u||handleU>=u+width))geometryIssues.add('C: handle outside sliding leaf');
+  }
+  front(frame,1,innerWidth,1,'#a58da4',D-.02);front(frame,H-2,innerWidth,1,'#a58da4',D-.02);
+  break;
+ }
+ case'D':{
+  body(23);for(let i=0;i<2;i++){front(.05,2+i*10,W-.1,9,'#d4b3c3');handle(W/2-.08,D+.02,7+i*10)}
+  // Keep the little plant beside the lamp, attached to the same tabletop.
+  ellipse(p(W*.22,D*.76,23),5,3,'#c1a0b2');
+  stroke([[W*.22,D*.76,23],[W*.22,D*.76,35]],'#76886d',1);
+  ellipse(p(W*.22,D*.76,39),6,9,'#94a18b');
+  const {u,v}=lampAnchor({W,D}),r=Math.min(.23,W*.24,D*.24);
+  b(u-r*.62,v-r*.62,r*1.24,r*1.24,1.5,23,'#e6c4d5','#a7809c','#c69bb5');
+  b(u-.025,v-.025,.05,.05,9,24.5,'#e8cfbc','#af8b96','#d2acb2');
+  b(u-.055,v-.055,.11,.11,3,32,state.lamp?'#ffe6ef':'#e1d2d9','#d6b5c9','#efd3df');
+  // A tapered shade uses queued local surfaces; the BSP layers its enclosed
+  // bulb and stem correctly without screen offsets or object-level sorting.
+  const corners=[[-1,-1],[1,-1],[1,1],[-1,1]];
+  const shade=state.lamp?['#ffd7e9','#edb2d0','#f7c3dd','#e8a5c8']:['#dbb0c8','#bd91af','#cea0bc','#b486a7'];
+  for(let i=0;i<4;i++){
+   const [x,y]=corners[i],[nx,ny]=corners[(i+1)%4];
+   polygon([p(u+x*r,v+y*r,34),p(u+nx*r,v+ny*r,34),p(u+nx*r*.58,v+ny*r*.58,42),p(u+x*r*.58,v+y*r*.58,42)],shade[i]);
+  }
+  surface(u-r*.58,v-r*.58,r*1.16,r*1.16,42,state.lamp?'#ffe3ef':'#e6c8da');break;
+ }
+ case'Sofa':{
+  body(8,0,['#b77c98','#855c77','#a56b87']);
+  const arm=FIT.arm,back=FIT.back,seatU=arm+FIT.gap,seatV=back+FIT.gap;
+  const seatW=W-2*seatU,seatD=D-seatV-FIT.gap,seats=Math.max(1,Math.round(W));
+  b(0,0,W,back,19,8,...pink);
+  b(0,back,arm,D-back,13,8,...pink);b(W-arm,back,arm,D-back,13,8,...pink);
+  for(let i=0;i<seats;i++)b(seatU+i*seatW/seats+FIT.gap/2,seatV,seatW/seats-FIT.gap,seatD,6,8,...pink);
+  b(seatU+FIT.gap,seatV+FIT.gap,Math.min(.42,seatW-.05),Math.min(.29,seatD-.05),4,14,'#f0d5de','#c3a4b7','#ddbacb');
+  if(INSPECT&&(seatW<=0||seatD<=0))geometryIssues.add('Sofa: cushions do not fit');break;
+ }
+ case'K':body(22);b(-.025,-.025,W+.05,D+.05,2,22,'#e7d9df','#c1abbc','#d5c0cc');{const a=p(.32,.35,25);ellipse(a,9,4,'#c895ad');const c=p(.32,.35,29);ellipse(c,5,4,'#e4b7aa')}break;
+ case'K-Sto':{
+  const H=KITCHEN_HEIGHT;if(room!=='living')body(H-1);surface(.06,.08,W-.12,D-.16,H,'#656273');
+  for(const u of [W*.28,W*.72])for(const v of [D*.28,D*.72]){ellipse(p(u,v,H+.4),5,3,'#302c3c');if(state.stove){ellipse(p(u,v,H+3),4,reduceMotion?5:5+Math.sin(clockTime*12+u)*1.5,'#ed9c79');ellipse(p(u,v,H+2),2,3,'#ffe1a7')}}
+  front(.12,4,W-.24,13,'#5c5264');handle(W/2-.08,D+.02,H-5);break;
+ }
+ case'K-Si':{
+  const H=KITCHEN_HEIGHT;if(room!=='living')body(H);surface(.16,.18,W-.32,D-.35,H+.5,'#8b8c9f');surface(.23,.25,W-.46,D-.49,H+.7,'#bac6d2');
+  stroke([[W/2,.17,H+1],[W/2,.17,H+12],[W/2,D*.5,H+12],[W/2,D*.5,H+7]],'#e1d5dc',2);
+  if(state.sink)stroke([[W/2,D*.5,H+7],[W/2,D*.5,H+1]],'#bde5f2',2);break;
+ }
+ case'F':{
+  body(43,0,['#eee5e7','#b5a9b8','#d4c2d0']);
+  if(fridgeSlide>.001){front(FIT.frame,2,W-2*FIT.frame,39,'#8e849d');front(.13,4,W-.26,35,'#d9d5db',D+FIT.panelDepth*2)}
+  // Two half-width leaves fit the one-tile aisle when opened; a full-width
+  // door would pass through the island in the supplied map.
+  const leafWidth=(W-FIT.frame*2-FIT.gap)/2;
+  for(const hand of [1,-1]){
+   const leaf=hingedLeaf(p,hand===1?FIT.frame:W-FIT.frame,D+FIT.panelDepth*3,leafWidth,39,2,Math.PI*.42*(fridgeSlide*fridgeSlide*(3-2*fridgeSlide)),['#ecd8e2','#b5a9b8','#d4c2d0'],hand);
+   if(leaf.frontVisible){
+    line([leaf.p(.03,leaf.thickness+.003,31),leaf.p(leafWidth-.03,leaf.thickness+.003,31)],'#bca9bd',1);
+    line([leaf.p(leafWidth-.11,leaf.thickness+.006,12),leaf.p(leafWidth-.11,leaf.thickness+.006,25)],'#aa879f',2);
+   }
+  }
+  if(SHOW_GUIDES)label('hinges',...Object.values(world(FIT.frame,D)),45,'#ffbb88',8);break;
+ }
+ case'TV':{
+  const S=furnitureSpace(g);drawLowStand(S);const screenWidth=W-.14;
+  drawRecordPlayer(S,W*.42,.28,W*.16,.28,12);
+  const {base:bottom,height:H}=TV_MODEL;
+  b(.07,.15,screenWidth,.10,H,bottom,'#5d526b','#4c435a','#5d526b');
+  front(.12,bottom+3,W-.24,H-6,'#a4a0bf',.255);front(.17,bottom+5,W-.34,H-12,'#c4b2cd',.258);
+  drawTVScreen(S);if(!tvState.on)stroke([[.2,.26,bottom+7],[W-.25,.26,bottom+H-10]],'#ddd2e4',1);break;
+ }
+ case'R':{
+  // Optional standalone record-player token for custom maps; the supplied map
+  // uses only the compact player attached to the TV console.
+  body(20,0,['#cbacb9','#8b748b','#b092a5']);
+  drawRecordPlayer(furnitureSpace(g),.06,.06,W-.12,D-.12,20);break;
+ }
+ case'Ct':{
+  const x=g.cx,y=g.cy;box(x-.12,y-.12,.24,.24,8,'#c8a7af','#987c8d','#ae8c9b');
+   for(let i=0;i<3;i++){const a=project(x,y,8+i*12);polygon([scenePoint({x:a.x-(17-i*4)*view.scale,y:a.y},a),scenePoint({x:a.x,y:a.y-(27-i*3)*view.scale},a),scenePoint({x:a.x+(17-i*4)*view.scale,y:a.y},a)],['#557768','#658876','#7c9c87'][i])}
+  label('✦',x,y,59,state.tree?'#ffe1a1':'#bc9eab',17);
+  for(let i=0;i<12;i++){const a=project(x+(i%3-1)*(.22-i*.008),y,13+i*3.1);ctx.save();if(treeGlow>.01){ctx.shadowColor='#ffd5a0';ctx.shadowBlur=(10+(reduceMotion?0:Math.sin(clockTime*2+i)*2))*treeGlow}ellipse(a,1.7,1.7,state.tree?(i%3===0?'#fff1c3':i%3===1?'#ffc5d5':'#ffdca0'):'#bda2b1');ctx.restore()}break;
+ }
+ case'FD':body(2,0,pink);b(0,0,W,.1,40,0,...white);front(.08,5,W-.16,30,'#d2adc1',.105);break;
+ }
+}
+function drawObject(x,y,t){
+ if(t===3){quad(x-.43,y-.43,.86,.86,1,'#b68da7');quad(x-.3,y-.3,.6,.6,1.2,'#dec2d2');label('↗',x,y,3,'#f1dfe9',18)}
+ if(t===1){if(room==='living'&&kitchenFillers.has(x+','+y))return;const h=y===0?ROOM_HEIGHT.wall:ROOM_HEIGHT.cutaway;box(x-.43,y-.43,.86,.86,h,'#e8dfe4','#b5acbd','#d1c0cd')}
+}
+// A real screen plane in the surface queue. BSP fragment clipping is applied
+// before this affine texture mapping, so people and furniture still occlude it.
+function drawTVScreen(S){
+ if(!S.frontVisible||!tvState.on)return;
+ const u=.17,w=S.W-.34,z=TV_MODEL.base+5,h=TV_MODEL.height-12,v=.259;
+ const points=[S.p(u,v,z),S.p(u+w,v,z),S.p(u+w,v,z+h),S.p(u,v,z+h)];
+ const paint=()=>{
+  const tl=points[3],tr=points[2],bl=points[0];ctx.save();
+  ctx.transform(tr.x-tl.x,tr.y-tl.y,bl.x-tl.x,bl.y-tl.y,tl.x,tl.y);
+  ctx.fillStyle='#171320';ctx.fillRect(0,0,1,1);
+  if(tvVideo.readyState>=2&&tvVideo.videoWidth&&tvVideo.videoHeight){
+   const fit=Math.min(w*32/tvVideo.videoWidth,h/tvVideo.videoHeight),dw=tvVideo.videoWidth*fit/(w*32),dh=tvVideo.videoHeight*fit/h;
+   ctx.drawImage(tvVideo,(1-dw)/2,(1-dh)/2,dw,dh);
+  }
+  ctx.restore();
+ };
+ if(!enqueue(points,paint))paint();
+}
+const appearanceWarnings=new Set();
+function wornSweater(look=appearance){
+ const style=SWEATERS.find(s=>s.id===look.outfitId)||null;
+ if(look.outfitId&&!style&&!appearanceWarnings.has(look.outfitId)){appearanceWarnings.add(look.outfitId);console.warn('Unknown outfit; using original:',look.outfitId)}
+ return style;
+}
+// Optional owner-authored artwork is lazy and bounded by the inline catalog.
+// No reference photo is loaded unless deliberately listed as runtime artwork.
+const wardrobeAssets=new Map();let wardrobeArtVersion=0;
+function wardrobeAsset(src){
+ if(wardrobeAssets.has(src))return wardrobeAssets.get(src);
+ const image=new Image(),asset={image,status:'loading',ready:null};
+ asset.ready=new Promise(resolve=>{image.onload=()=>{asset.status='ready';wardrobeArtVersion++;resolve(asset)};image.onerror=()=>{asset.status='error';resolve(asset)}});
+ wardrobeAssets.set(src,asset);image.src=src;return asset;
+}
+// Body-local art units, feet at (0,0); head has its own camera-facing anchor.
+const CHARACTER_ANCHORS=Object.freeze({head:[0,-27],neck:[0,-21],shoulders:[0,-20],chest:[0,-14],cuffs:[[-8,-9],[8,-9]],hands:[[-8,-7],[8,-7]],hips:[0,-5],feet:[[-4,-1],[4,-1]]});
+function characterPainter(context,color=c=>c){
+ const oval=(x,y,rx,ry,fill)=>{context.beginPath();context.ellipse(x,y,rx,ry,0,0,Math.PI*2);context.fillStyle=color(fill);context.fill()};
+ const shape=(points,fill)=>{context.beginPath();points.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.closePath();context.fillStyle=color(fill);context.fill()};
+ const stroke=(points,fill,width=.55)=>{context.beginPath();points.forEach(([x,y],i)=>i?context.lineTo(x,y):context.moveTo(x,y));context.strokeStyle=color(fill);context.lineWidth=width;context.lineCap='round';context.lineJoin='round';context.stroke()};
+ return{context,color,oval,shape,stroke};
+}
+function shade(color,amount){return '#'+[1,3,5].map(i=>Math.max(0,Math.min(255,parseInt(color.slice(i,i+2),16)+amount)).toString(16).padStart(2,'0')).join('')}
+function drawHoodie(P,look,style){
+ const {oval,shape,stroke,context:c}=P;
+ // Neck, shoulder seams, contrasting sleeves, cuffs and the shared chest anchor.
+ oval(0,-21,2.7,3,look.skin);
+ for(const side of [-1,1]){
+  shape([[side*4,-21],[side*8,-19],[side*10,-10],[side*6.6,-9],[side*4.8,-16]],style.sleeves);
+  stroke([[side*7,-18],[side*8.4,-12]],shade(style.sleeves,15),.65);
+  shape([[side*6.6,-10.5],[side*9.8,-11],[side*9.6,-8.4],[side*6.7,-8]],shade(style.sleeves,-18));
+  oval(side*8,-7.3,1.6,1.9,look.skin);
+ }
+ shape([[-6.3,-4],[-6.5,-17],[-4.6,-21],[4.6,-21],[6.5,-17],[6.3,-4]],style.body);
+ shape([[-6.3,-4],[-6.5,-17],[-4.6,-21],[-4,-6]],shade(style.body,-15));
+ stroke([[-4.4,-20],[-3,-18],[3,-18],[4.4,-20]],shade(style.hood,-24),.8);
+ stroke([[-5.6,-17],[-4.9,-18.6]],shade(style.body,25),.65);stroke([[5.6,-17],[4.9,-18.6]],shade(style.body,25),.65);
+ const [cx,cy]=CHARACTER_ANCHORS.chest;
+ if(style.panel)shape([[cx-4.3,cy-2.5],[cx+4.3,cy-2.5],[cx+4.3,cy+1.3],[cx-4.3,cy+1.3]],style.panel);
+ if(style.text){c.fillStyle=P.color('#ffffff');c.textAlign='center';c.textBaseline='middle';c.font='bold 3.8px Georgia';c.fillText(style.text,cx,cy,9.2)}
+ if(style.artwork?.src){const asset=wardrobeAsset(style.artwork.src);if(asset.status==='ready'){
+  // Isolated decal tint: multiply then restore alpha, never tint the torso twice.
+  const decal=document.createElement('canvas');decal.width=96;decal.height=48;const d=decal.getContext('2d');
+  const image=asset.image,fit=Math.min(96/image.naturalWidth,48/image.naturalHeight),w=image.naturalWidth*fit,h=image.naturalHeight*fit;
+  d.drawImage(image,(96-w)/2,(48-h)/2,w,h);d.globalCompositeOperation='multiply';d.fillStyle=P.color('#ffffff');d.fillRect(0,0,96,48);d.globalCompositeOperation='destination-in';d.drawImage(image,(96-w)/2,(48-h)/2,w,h);
+  c.drawImage(decal,cx-4.8,cy-2.5,9.6,4.8);
+ }}
+ // Pocket below the chest leaves each main marking open and readable.
+ shape([[-3.8,-10],[-2.8,-11],[2.8,-11],[3.8,-10],[3.5,-6],[-3.5,-6]],shade(style.body,-9));
+ stroke([[-3.8,-9],[-2.5,-7.5]],shade(style.body,24));stroke([[3.8,-9],[2.5,-7.5]],shade(style.body,24));stroke([[-3,-6.1],[3,-6.1]],shade(style.body,-24),.45);
+ shape([[-6.3,-5.7],[6.3,-5.7],[6.3,-3.6],[-6.3,-3.6]],shade(style.body,-17));stroke([[-5.6,-4.5],[5.6,-4.5]],shade(style.body,15),.4);
+ for(const side of [-1,1]){stroke([[side*1.7,-19],[side*2.1,-14.8]],'#e5d8cf',.55);oval(side*2.1,-14.5,.4,.7,'#cfc0b9');stroke([[side*5,-11.5],[side*4.4,-12.6]],shade(style.body,-20),.5)}
+}
+function drawCharacterBody(P,look,deskSeated=false){
+ const {oval,shape,stroke}=P,style=wornSweater(look);
+ if(!deskSeated)for(const [x,y] of CHARACTER_ANCHORS.feet)oval(x,y,2.7,1.8,'#544d40');
+ if(style){drawHoodie(P,look,style);return}
+ // Original pink outfit remains a first-class selection.
+ oval(0,-21,2.6,3,look.skin);shape([[-7,-4],[-4,-21],[4,-21],[8,-4]],'#e6b7d0');
+ shape([[-7,-4],[-4,-21],[-2.5,-19],[-3.8,-4]],'#c894b4');stroke([[-3,-19],[0,-18],[3,-19]],'#f5d8e7',.7);stroke([[-5.8,-5],[6.5,-5]],'#ba849f',.6);
+ for(const side of [-1,1]){oval(side*7,-14,2.2,5,look.skin);stroke([[side*4.7,-13],[side*4,-8]],'#f2cede',.55)}
+}
+// Hood -> back hair -> skin -> fringe/locks -> face. All are one billboard
+// anchor and one alpha texture; a hair layer cannot acquire a nearer depth.
+function drawCharacterHead(P,look,{facing=1,sleeping=false}={}){
+ const c=P.context;c.save();c.scale(facing,1);
+ const {oval,shape,stroke}=P,style=wornSweater(look),hair='#574737';
+ if(style){oval(0,1,9.8,10.7,style.hood);oval(0,.5,8.5,9.3,shade(style.hood,-28));stroke([[-6,7],[-3,10],[3,10],[6,7]],shade(style.hood,22),.7)}
+ shape([[-7,6],[-8,-3],[-5,-8],[1,-9.3],[6,-7.4],[8,-2],[7.5,7],[4,8.5],[-4,8.6]],hair);
+ oval(0,1,5.8,6.8,look.skin);
+ // Broad highlights survive the world scale; locks leave the cheeks exposed.
+ shape([[-7,-2],[-5,-6],[0,-7.7],[4,-6.5],[1,-5.5],[-3,-3]],'#79614b');
+ shape([[-6,-5],[-3,-8],[4,-7],[6,-4],[1,-4],[-3,-2]],hair);
+ oval(-6.1,1.8,1.6,6.2,hair);oval(6.1,1.3,1.5,5.8,hair);
+ stroke([[-6.6,-1],[-6.5,3],[-5.9,6]],'#927458',.8);stroke([[6,-1],[6.5,2],[6,5.5]],'#79614b',.6);
+ for(const x of [-2.2,2.2]){
+  stroke([[x-.9,-.8],[x,-1.1],[x+.8,-.6]],hair,.55);
+  if(sleeping)stroke([[x-1,1],[x,1.5],[x+1,1]],hair,.65);
+  else{oval(x,1,.7,1.05,hair);oval(x-.15,.7,.19,.27,'#f9e4ce')}
+  oval(x*1.45,3,1.05,.48,'#d6968c');
+ }
+ stroke([[.2,1.8],[.7,2.8],[.1,3]],'#bd816a',.4);
+ stroke([[-1.3,4.3],[0,4.8],[1.3,4.3]],'#9b6260',.65);c.restore();
+}
+function drawCharacterPreview(target,look){
+ const c=target.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,target.width,target.height);
+ const scale=Math.min(target.width/30,target.height/46);c.translate(target.width/2,target.height*.88);c.scale(scale,scale);
+ const P=characterPainter(c);drawCharacterBody(P,look);c.translate(...CHARACTER_ANCHORS.head);drawCharacterHead(P,look);
+}
+// A bounded cache contains small transparent material-lit textures. The same
+// procedural functions draw the independent panel; no global view/context swap.
+const characterArtCache=new Map();
+function worldCharacterArt(look,part,anchor,sleeping=false,deskSeated=false){
+ const style=wornSweater(look),palette=[look.skin,'#544d40','#e6b7d0','#c894b4','#f5d8e7','#ba849f','#f2cede','#574737','#79614b','#927458','#f9e4ce','#d6968c','#bd816a','#9b6260','#e5d8cf','#cfc0b9','#ffffff'];
+ if(style)for(const color of [style.body,style.sleeves,style.hood,style.panel].filter(Boolean))for(const n of [0,-9,-15,-17,-18,-20,-24,-28,15,22,24,25])palette.push(shade(color,n));
+ const colors=new Map(palette.map(color=>[color,litColor(color,anchor)]));
+ const key=JSON.stringify([part,look.skin,style,player.facing,sleeping,deskSeated,wardrobeArtVersion,[...colors.values()]]);
+ if(characterArtCache.has(key))return characterArtCache.get(key);
+ const bounds=part==='head'?[-11,-12,22,24]:[-11,-23,22,26],resolution=4;
+ const bitmap=document.createElement('canvas');bitmap.width=bounds[2]*resolution;bitmap.height=bounds[3]*resolution;
+ const c=bitmap.getContext('2d');c.scale(resolution,resolution);c.translate(-bounds[0],-bounds[1]);
+ const P=characterPainter(c,color=>colors.get(color)||litColor(color,anchor));
+ if(part==='head')drawCharacterHead(P,look,{facing:player.facing||1,sleeping});else drawCharacterBody(P,look,deskSeated);
+ const art={bitmap,bounds};if(characterArtCache.size>=24)characterArtCache.delete(characterArtCache.keys().next().value);characterArtCache.set(key,art);return art;
+}
+function drawCharacterSurface(anchor,part,size=1,sleeping=false,deskSeated=false){
+ const {bitmap,bounds:[x,y,w,h]}=worldCharacterArt(appearance,part,anchor,sleeping,deskSeated),scale=view.scale*size;
+ const corners=[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(([dx,dy])=>scenePoint({x:anchor.x+dx*scale,y:anchor.y+dy*scale},anchor));
+ // Each texture is a real queued plane, clipped by furniture/BSP fragments.
+ const paint=()=>ctx.drawImage(bitmap,anchor.x+x*scale,anchor.y+y*scale,w*scale,h*scale);
+ if(!enqueue(towardCamera(corners,part==='head'?.009:.003),paint))paint();
+}
+function drawSnack(x,y,z){
+ if(snack.phase!=='eating')return;
+ const wave=reduceMotion?.5:(1-Math.cos(Math.min(1,snack.elapsed/snack.duration)*Math.PI*6))/2;
+ const hand=project(x+.18,y+.04,z+14+wave*8);
+ ellipse(hand,2.2,2.6,appearance.skin);
+ ellipse(scenePoint({x:hand.x+1.4*view.scale,y:hand.y-2*view.scale},hand),3,3,'#d5a573');
+ for(const [dx,dy]of [[-1,-1],[1,0],[0,1]])ellipse(scenePoint({x:hand.x+(1.4+dx)*view.scale,y:hand.y+(-2+dy)*view.scale},hand),.45,.45,'#765047');
+}
+function drawDeskSeatedPlayer(chair){
+ const S=furnitureSpace(chair.group,'bedroom',chair.facing);
+ for(const u of [.242,.366]){
+  S.b(u,.34,.086,.255,2.6,DESK_SEAT_HEIGHT,'#736269','#51464f','#645461');
+  S.b(u,.51,.086,.085,9.5,4.2,'#786770','#48404d','#5d4f58');
+  S.b(u-.009,.51,.104,.14,2.1,2.25,'#685857','#463738','#514346');
+ }
+ const lift=DESK_SEAT_HEIGHT+4;
+ drawCharacterSurface(S.p(.35,.315,lift),'body',.87,false,true);
+ drawCharacterSurface(S.p(.35,.33,lift+23),'head',.87);
+}
+function drawPlayer(){
+ if(atDesk()){drawDeskSeatedPlayer(bedroomChair);return}
+ const sleeping=player.pose==='sleeping',sitting=player.pose==='sitting';const lift=sleeping?23:sitting?14:0;
+ const moving=keys.size&&!modalOpen&&!sleeping&&!sitting;
+ const bob=reduceMotion?0:moving?Math.sin(clockTime*12)*1.3:Math.sin(clockTime*2)*.4;
+ let x=player.x,y=player.y;
+ const occupied=player.pose==='standing'?null:furniture[room].find(g=>x>=g.x&&x<=g.x+g.w&&y>=g.y&&y<=g.y+g.d);
+ if(sitting&&occupied){const S=furnitureSpace(occupied),l=S.local(x,y),q=S.world(Math.max(.23,Math.min(S.W-.23,l.u)),Math.max(.26,Math.min(S.D-.18,l.v)));x=q.x;y=q.y}
+ spriteAnchor=project(x,y,lift+18);ellipse(project(x,y,1),8,4,'#343d3245');
+ if(sleeping){
+ if(occupied){
+  const S=furnitureSpace(occupied),style=wornSweater(),u=S.W/2;
+  if(style)S.surface(u-.11,.52,.22,.10,24.8,style.body);
+  S.b(u-.14,.63,.28,Math.min(.83,S.D-.63),5,20,...BEDROOM_ART.quilt);
+  S.surface(u-.14,.81,.28,Math.min(.13,S.D-.81),25.02,'#6e303c');
+  drawCharacterSurface(S.p(u,.48,25),'head',.85,true);
+  const head=S.world(u-.14,.68);label('z z',head.x,head.y,35,'#77544c',9);
+ }
+ spriteAnchor=null;return;
+ }
+ const z=lift+bob;
+ drawCharacterSurface(project(x,y,z),'body');
+ drawCharacterSurface(project(x,y,z+27),'head');
+ drawSnack(x,y,z);label('♥',x,y,z+44,'#e3b5a0',10);
+ spriteAnchor=null;
+}
+function resize(){
+ const rect=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,2);
+ canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);
+ const n=map().length,m=map()[0].length;
+ // Include the actual wall height in both fit and placement, leaving room
+ // above the miniature for the caption and below it for gameplay controls.
+ const headroom=Math.max(65,ROOM_HEIGHT.wall+11),sceneHeight=(m+n)*16+headroom;
+ const topPadding=180,bottomPadding=75,availableHeight=rect.height-topPadding-bottomPadding;
+ view={w:rect.width,h:rect.height,scale:Math.min((rect.width-55)/((m+n)*32),availableHeight/sceneHeight,1.85),ox:rect.width/2,oy:0};
+ view.oy=topPadding+(headroom-10)*view.scale+Math.max(0,(availableHeight-sceneHeight*view.scale)/2);
+}
+// Resizing clears a canvas bitmap; repaint immediately even when animation
+// frames are paused by a background tab or a screenshot renderer.
+new ResizeObserver(()=>{resize();render()}).observe(canvas);
+function render(){
+ ctx.clearRect(0,0,view.w,view.h);drawArchitecture();
+ sceneFaces=[];drawWalls();if(room==='living')drawKitchenRun();for(const g of windowTables[room])drawLowStand(furnitureSpace(g));for(const g of furniture[room])drawFurniture(g);
+ if(room==='bedroom'&&bedroomChair)drawDeskChair(bedroomChair);
+ for(let y=0;y<map().length;y++)for(let x=0;x<map()[y].length;x++)if(tile(x,y)===1||tile(x,y)===3)drawObject(x,y,tile(x,y));
+ drawPlayer();flushScene();if(INSPECT)drawGeometryDebug();
+ // Ambient drifting flecks are deterministic and purely decorative.
+ if(!reduceMotion)for(let i=0;i<14;i++){const x=(i*83+Math.sin(clockTime*.15+i)*20)%view.w,y=145+(i*47+clockTime*(2+i%3))%Math.max(1,view.h-210);ctx.globalAlpha=.12+Math.sin(clockTime+i)*.08;ellipse({x,y},1.1,1.1,'#f4dba5')}ctx.globalAlpha=1;
+ if(state.ended){ctx.fillStyle='#1c261c99';ctx.fillRect(0,0,view.w,view.h)}
+}
+function drawGeometryDebug(){
+ if(!SHOW_GUIDES)return;
+ for(const g of [...furniture[room],...windowTables[room]]){
+  const S=furnitureSpace(g);line([S.p(0,0,1),S.p(S.W,0,1),S.p(S.W,S.D,1),S.p(0,S.D,1),S.p(0,0,1)],'#ff97d4',.7);
+  line([S.p(S.W/2,S.D/2,30),S.p(S.W/2+.25,S.D/2,30)],'#ff9999',1.5);
+  line([S.p(S.W/2,S.D/2,30),S.p(S.W/2,S.D/2+.25,30)],'#9bdfbb',1.5);
+  label(g.token,g.cx,g.cy,54,'#f8dbe9',9);
+ }
+ if(room==='bedroom'&&bedroomChair){
+  const {x:left,y:back,w,d}=bedroomChair.collision;
+  line([[left,back],[left+w,back],[left+w,back+d],[left,back+d],[left,back]].map(([x,y])=>project(x,y,1)),'#ff97d4',.7);
+  const {x,y}=bedroomChair.exit;ellipse(project(x,y,1),2,2,'#9bdfbb');
+ }
+ ctx.fillStyle='#f3d9e8';ctx.font='11px monospace';ctx.textAlign='left';ctx.fillText('INSPECT · bounds / red U / green front V · '+geometryIssues.size+' geometry issues',16,view.h-65);
+ if(geometryIssues.size)console.warn([...geometryIssues]);
+}
+function frame(time){
+ const dt=lastTime?Math.min((time-lastTime)/1000,.04):0;lastTime=time;clockTime=time/1000;
+ const target=state.tree&&room==='living'?1:0;
+ treeGlow=reduceMotion?target:treeGlow+(target-treeGlow)*(1-Math.exp(-ROOM_LIGHTING.fadeSpeed*dt));
+ const lampTarget=state.lamp&&room==='bedroom'?1:0;
+ lampGlow=reduceMotion?lampTarget:lampGlow+(lampTarget-lampGlow)*(1-Math.exp(-ROOM_LIGHTING.fadeSpeed*dt));
+ const stoveTarget=state.stove&&room==='living'?1:0;
+ stoveGlow=reduceMotion?stoveTarget:stoveGlow+(stoveTarget-stoveGlow)*(1-Math.exp(-ROOM_LIGHTING.fadeSpeed*dt));
+ updateBalconyDoor(dt);updateActivities(dt);update(dt);syncConsoleControls();render();requestAnimationFrame(frame);
+}
+start();
+// Inspection-only fixtures make screenshots reproducible without altering the
+// normal game. Example: ?inspect=1&room=living&open=1&tree=1&guides=0
+if(INSPECT){const q=new URLSearchParams(location.search);if(q.get('viewport')==='390')document.documentElement.style.width='390px';if(q.get('room')==='living'){switchRoom();player.x=8;player.y=7}if(q.get('board')==='reverse')FURNITURE_FACING.living.Whiteboard='l';state.fridge=q.get('open')==='1';fridgeSlide=state.fridge?1:0;if(q.has('fridge'))fridgeSlide=Math.max(0,Math.min(1,Number(q.get('fridge'))||0));if(q.has('sweater'))appearance.outfitId=SWEATERS.find(s=>s.id===q.get('sweater'))?.id||null;state.balcony=state.fridge;balconySlide=state.balcony?1:0;if(INSPECT_BALCONY_SLIDE!==null)balconySlide=Math.max(0,Math.min(1,Number(INSPECT_BALCONY_SLIDE)||0));state.stove=q.get('stove')==='1';stoveGlow=state.stove&&room==='living'?1:0;state.tree=q.get('tree')==='1';treeGlow=state.tree?1:0;state.lamp=q.get('lamp')==='1';lampGlow=state.lamp&&room==='bedroom'?1:0}
+if(INSPECT){const q=new URLSearchParams(location.search);if(q.get('face')==='left')player.facing=-1;if(q.get('pose')==='standing'){getUp();player.x=room==='living'?8:2;player.y=room==='living'?4:5}if(q.get('pose')==='sitting'&&room==='living'){player.x=6;player.y=4;player.pose='sitting';player.anchor={x:6,y:4};player.returnPos={x:5,y:4}}if(q.get('snack')==='1'&&room==='living'){state.fridge=true;fridgeSlide=1;player.x=8;player.y=7;player.pose='standing';snack.phase='eating';snack.origin={x:player.x,y:player.y};snack.duration=999;snack.elapsed=1}}
+if(INSPECT&&room==='bedroom'){
+ const spot=new URLSearchParams(location.search).get('bedroom');
+ const positions={vanity:{x:1,y:1.5},lamp:{x:6.24,y:6.12},corridor:{x:6.39,y:7.84}};
+ if((spot==='desk'||spot==='desk-sitting')&&bedroomChair){
+  Object.assign(player,bedroomChair.exit,{pose:'standing',anchor:null,returnPos:null});
+  if(spot==='desk-sitting')sitAtDesk();
+ }else if(Object.hasOwn(positions,spot)&&playerFits(positions[spot].x,positions[spot].y)){
+  Object.assign(player,positions[spot],{pose:'standing',anchor:null,returnPos:null});
+ }
+}
+// Owner-independent inspection art only: asymmetric F/B, arrow and heart.
+if(INSPECT&&new URLSearchParams(location.search).get('drawing')==='sample'){
+ const instance=objectInstances.get('living.whiteboard.main');if(instance){
+  const stroke=(points,color,width=.035)=>({tool:'marker',color,width,points});
+  const arrow=[[.63,.5],[.88,.5],[.81,.3],[.88,.5],[.81,.7]];
+  const heart=Array.from({length:65},(_,i)=>{const a=i/64*Math.PI*2;return [.43+Math.pow(Math.sin(a),3)*.10,.48-(13*Math.cos(a)-5*Math.cos(2*a)-2*Math.cos(3*a)-Math.cos(4*a))*.017]});
+  const state=boardState(instance);state.sides={
+   front:[stroke([[.12,.8],[.12,.2],[.25,.2]],'#a94468'),stroke([[.12,.48],[.22,.48]],'#a94468'),stroke(heart,'#7963ae'),stroke(arrow,'#a94468')],
+   back:[stroke([[.12,.8],[.12,.2],[.22,.2],[.26,.3],[.22,.48],[.12,.48]],'#416a98'),stroke([[.22,.48],[.27,.62],[.23,.8],[.12,.8]],'#416a98'),stroke(heart,'#a94468'),stroke(arrow,'#416a98')]
+  };state.revision++;
+ }
+}
+if(INSPECT){const q=new URLSearchParams(location.search);if(q.get('activity')==='wardrobe')openWardrobe(objectInstances.get('bedroom.closet.main'));if(q.get('activity')==='drawing')openDrawing(objectInstances.get('living.whiteboard.main'))}
+if(INSPECT){const q=new URLSearchParams(location.search);if(q.get('tv')==='frame'&&room==='living'){
+ tvState.on=true;tvState.status='paused';tvVideo.preload='auto';
+ const seek=()=>{tvVideo.currentTime=Math.max(0,Math.min(Number(q.get('time'))||0,Math.max(0,tvVideo.duration-.05)))};
+ if(tvVideo.readyState>=1)seek();else tvVideo.addEventListener('loadedmetadata',seek,{once:true});
+}}
+updateHint();render();requestAnimationFrame(frame);
+</script>
+</body>
+</html>
