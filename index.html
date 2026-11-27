@@ -49,6 +49,32 @@ button:focus-visible,input:focus-visible{outline:2px solid #f2d19d;outline-offse
 #drawing-canvas:focus-visible{outline:2px solid #f2d19d}.modal .drawing-status,.modal .drawing-help{min-height:0;font-size:12px;line-height:1.6;color:#cdb9cc;margin:8px 0}
 .modal .drawing-help{font-size:11px;color:var(--muted)}
 @media(max-width:560px){.drawing-toolbar,.drawing-row{gap:8px;margin-bottom:12px}.draw-choice{min-height:44px;padding:7px 9px}.drawing-row .action{min-height:44px}.draw-width{width:100%;justify-content:space-between}.draw-width input{width:140px}.drawing-paper{padding:5px}}
+
+/* The desk uses the existing activity shell for its desktop and both apps. */
+.computer-desktop{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:4px}
+.computer-app{display:grid;grid-template-rows:58px auto auto;justify-items:start;gap:6px;min-width:0;padding:16px;text-align:left;background:#392c43;border:1px solid #b797b461;border-radius:13px}
+.computer-app:hover:not(:disabled){background:#503851}.computer-app strong{font:21px Georgia,serif}.computer-app small{color:#dbc4d7;font-size:12px}
+.computer-app-icon{display:grid;place-items:center;width:56px;height:52px;background:#f0d3c5;color:#5f3c56;border-radius:10px;font-size:28px;line-height:1}
+.computer-app-icon canvas{display:block;width:47px;height:47px}
+.archive-hero,.archive-chapter{color:#382b38;border-radius:13px;padding:clamp(16px,4vw,28px)}
+.archive-hero{background:radial-gradient(ellipse at top left,#f7ccd8,transparent 80%),linear-gradient(135deg,#fff1ef,#e9e7fa);margin-bottom:16px}
+.archive-hero h3{font:clamp(26px,5vw,40px) Georgia,serif;margin:5px 0 8px}
+.archive-hero .eyebrow,.archive-chapter .eyebrow{color:#6c425c}
+.archive-hero p,.archive-chapter p{color:#513e4d;min-height:0;line-height:1.65}
+.archive-chapter{background:linear-gradient(130deg,var(--chapter-color,#f9e1e3),#fcf3f0);margin-bottom:12px}
+.archive-chapter h3{font:27px Georgia,serif;margin:4px 0}.archive-chapter .archive-subtitle{font-weight:600;margin-bottom:7px}
+.archive-chapter ul{padding-left:20px;margin:8px 0 12px;color:#513e4d}.archive-photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,125px),1fr));gap:8px}
+.archive-photos figure{display:grid;place-items:center;min-width:0;aspect-ratio:4/5;margin:0;border-radius:8px;overflow:hidden;background:#7145591c}
+.archive-photos img{display:block;width:100%;height:100%;max-height:none;margin:0;border-radius:0}
+.archive-photos figcaption{padding:8px;font-size:12px;text-align:center}.archive-photos [hidden]{display:none}
+.pairs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:4px}
+.pair-card{display:grid;place-items:center;align-content:center;gap:2px;min-width:0;min-height:68px;height:clamp(74px,11dvh,106px);padding:4px;border-radius:10px;border:1px solid #b797b477;background:#4d3651;color:#f2d3e3;font:24px Georgia,serif;transition:none}
+.pair-card[data-face="down"]:hover{background:#674760}button.pair-card[data-face="up"],button.pair-card[data-face="match"]{background:#f3dfd6;color:#543c51}
+button.pair-card[data-face="match"]{background:#dddfc8;border-color:#99af85}.pair-card[data-face="match"] .pair-name::after{content:' ✓'}
+.pair-face{display:grid;place-items:center}.pair-face[hidden],.pair-back[hidden]{display:none}.pair-face canvas{width:clamp(34px,7dvh,64px);height:clamp(34px,7dvh,64px)}
+.pair-name{font:600 10px/1.15 'Segoe UI',sans-serif;text-align:center;overflow-wrap:anywhere}
+.modal .pairs-score,.modal .pairs-feedback{min-height:0;line-height:1.4;margin:4px 4px 8px;font-size:12px}.modal .pairs-score{font-weight:650;color:#fff0f0}
+@media(max-width:560px){.computer-desktop{gap:9px}.computer-app{padding:11px}.computer-app strong{font-size:17px}.pairs-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.pair-card{height:clamp(68px,10dvh,88px)}.archive-photos{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -73,6 +99,204 @@ button:focus-visible,input:focus-visible{outline:2px solid #f2d19d;outline-offse
 </div>
 <div class="overlay" id="overlay" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><button class="modal-close" id="close-modal" aria-label="Close dialog">×</button><div class="modal-icon" id="modal-icon">♡</div><div class="eyebrow" id="modal-kicker">A little memory</div><h2 id="modal-title"></h2><img id="modal-image" alt="A special memory" hidden><p id="modal-text"></p><div id="activity-body" hidden></div><div class="modal-actions" id="modal-actions"></div></section></div>
 <div class="toast" id="toast" role="status" hidden></div>
+<template id="eleven-month-archive">
+ <header class="archive-hero">
+  <div class="eyebrow">Our Storybook</div>
+  <h3>Welcome, Andela!</h3>
+  <p>Step into an experience crafted just for you. Every click opens a memory, every scroll takes us deeper into the joy and growth of our first year together!</p>
+ </header>
+ <section class="archive-chapter" style="--chapter-color:#f6d5df">
+  <div class="eyebrow">Month 1</div>
+  <h3>December</h3>
+  <p class="archive-subtitle">The coziest of beginnings</p>
+  <p>On the day that Wizards of Waverly Place: The Movie, sparked our interest from your bed, our lives changed forever:) It was a day that I had been waiting for so long.</p>
+  <ul>
+   <li>Exchanging playlists (Don&#39;t Miss Me at 4am)</li>
+   <li>The BIGGEST CHEEZIEST burgers at Firefly</li>
+   <li>Tyed&#39;s Car Accident</li>
+   <li>Zoo Lights</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/1.jpg" alt="December memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/1-2.jpg" alt="December memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#dceafc">
+  <div class="eyebrow">Month 2</div>
+  <h3>January</h3>
+  <p class="archive-subtitle">Andela&#39;s Birth month (And Our First New Year Together!)</p>
+  <p>The beginning of 2025 has always felt like the beginning of a new chapter in my life. My Andela&#39;s birthday was during this month, and we celebrated a LOT!</p>
+  <ul>
+   <li>Andela&#39;s Birthday: North Pond and Little Bad Wolf</li>
+   <li>The start of our Steven Universe journey</li>
+   <li>Late mornings with Red Velvet breakfasts</li>
+   <li>The names `TYED` AND `ANDELA` WERE BORN</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/2.jpg" alt="January memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/2-2.jpg" alt="January memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/2-3.jpg" alt="January memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#f4ebca">
+  <div class="eyebrow">Month 3</div>
+  <h3>February</h3>
+  <p class="archive-subtitle">The month of love</p>
+  <p>This month was all about loving, caring, and growing so much closer. I noticed that you enjoyed my little </p>
+  <ul>
+   <li>Valentine&#39;s Day</li>
+   <li>Tyed releases his first song (MUTT)</li>
+   <li>Taylor Swift concert</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/3.jpg" alt="February memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/3-2.jpg" alt="February memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/3-3.jpg" alt="February memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#e5daf3">
+  <div class="eyebrow">Month 4</div>
+  <h3>March</h3>
+  <p class="archive-subtitle">Tyed&#39;s Birth month!</p>
+  <p>March was the month we marched towards each other with open arms, falling in love over and over, and being there for each other increasingly often.</p>
+  <ul>
+   <li>We made our OWN red velvet birthday cake!</li>
+   <li>Our first (attempt at a) picnic!</li>
+   <li>First time at Oberweis!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/4.jpg" alt="March memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/4-2.jpg" alt="March memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/4-3.jpg" alt="March memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#e7e6f9">
+  <div class="eyebrow">Month 5</div>
+  <h3>April</h3>
+  <p class="archive-subtitle">You know what they say about April showers...</p>
+  <p>My Andela and I grew SO much during April. We learned to embrace the unexpected, and embrace each other through everything. We begun to use the opportunities we had to support each other in new ways, upon knowing each other more and more, and we&#39;ve reaped the benefits ever since.</p>
+  <ul>
+   <li>First time having sushi together!</li>
+   <li>Andela drives Patricia for the first time!</li>
+   <li>Ice Cream Museum!</li>
+   <li>The first time we said MEW MEW MEW</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/5.jpg" alt="April memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/5-2.jpg" alt="April memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/5-3.jpg" alt="April memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#dcebdd">
+  <div class="eyebrow">Month 6</div>
+  <h3>May</h3>
+  <p class="archive-subtitle">...They bring May flowers!</p>
+  <p>This was the official beginning of our relaximination time together. With college behind us, we focused on unwinding, and enjoying each other&#39;s company without the pressure of deadlines.</p>
+  <ul>
+   <li>Last day of classes!</li>
+   <li>Graduation Day!</li>
+   <li>Our CBC era!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/6.jpg" alt="May memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/6-2.jpg" alt="May memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/6-3.jpg" alt="May memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#fae4bb">
+  <div class="eyebrow">Month 7</div>
+  <h3>June</h3>
+  <p class="archive-subtitle">Time of separation, yet creation of unique memories</p>
+  <p>This month was all about cherishing the moments we had together, even from afar. We coordinated virtual hangouts, and made the most of every opportunity to connect. </p>
+  <ul>
+   <li>Andela&#39;s trip to China!</li>
+   <li>Sims era!</li>
+   <li>Tyed&#39;s first day of work!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/7.jpg" alt="June memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/7-2.jpg" alt="June memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#f6dfcf">
+  <div class="eyebrow">Month 8</div>
+  <h3>July</h3>
+  <p class="archive-subtitle">Acclimation to new routines</p>
+  <p>As we acclimate to Tyed&#39;s work life, we remained committed to nurturing our bond, exploring new dimensions for our relationship, and making time for each other.</p>
+  <ul>
+   <li>FFC Era Begins!</li>
+   <li>Catcade!</li>
+   <li>Qiao Lin for the first time!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/8.jpg" alt="July memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/8-2.jpg" alt="July memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/8-3.jpg" alt="July memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#dceaf9">
+  <div class="eyebrow">Month 9</div>
+  <h3>August</h3>
+  <p class="archive-subtitle">Andela&#39;s Dental School journey begins</p>
+  <p>As Andela acclimatizes to the challenges of dental school, we find new ways to support each other. Tyed learns more and more about Andela&#39;s world, and we grow closer through shared experiences and understanding.</p>
+  <ul>
+   <li>Andela&#39;s first day of Dental School!</li>
+   <li>Marvel Rivals era!</li>
+   <li>Most recent escape room adventure!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/9.jpg" alt="August memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/9-2.jpg" alt="August memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/9-3.jpg" alt="August memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#deeee1">
+  <div class="eyebrow">Month 10</div>
+  <h3>September</h3>
+  <p class="archive-subtitle">WE ELEVATE!</p>
+  <p>This month showed some of our first days as we had begun to adapt to our new routines, and the additional responsibilities that each of us had recently taken!</p>
+  <ul>
+   <li>Andela&#39;s white coat ceremony!</li>
+   <li>Our attempt at Andela&#39;s first dinner for Tyed (Mac &amp; Cheese)!!</li>
+   <li>We revisited UIC for the first time since graduation!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/10.jpg" alt="September memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/10-3.jpg" alt="September memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#f8dfd0">
+  <div class="eyebrow">Month 11</div>
+  <h3>October</h3>
+  <p class="archive-subtitle">Spooky Season!</p>
+  <p>As we learn to navigate our separate responsibilities, and successfully begin to thrive in our new goals, we enjoy the fall weather that sent us back to the time that we had met, just a year ago.</p>
+  <ul>
+   <li>We chose kitties for me to adopt together!</li>
+   <li>Museum of Science and Industry! (The silly escape room)</li>
+   <li>Halloween at Andela&#39;s apartment!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/11.jpg" alt="October memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/11-2.jpg" alt="October memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/11-3.jpg" alt="October memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+ <section class="archive-chapter" style="--chapter-color:#f6d9e3">
+  <div class="eyebrow">Month 12</div>
+  <h3>November</h3>
+  <p class="archive-subtitle">Christmas Spirit!</p>
+  <p>As the year spins back around, we embrace the holiday season with our special celebrations and traditions!.</p>
+  <ul>
+   <li>Christkindlemarket!</li>
+   <li>Ice Skating at Millennium Park!</li>
+  </ul>
+  <div class="archive-photos">
+   <figure><img src="./archive/eleven-month/12.jpg" alt="November memory photo 1" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/12-2.jpg" alt="November memory photo 2" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+   <figure><img src="./archive/eleven-month/12-3.jpg" alt="November memory photo 3" loading="lazy" decoding="async"><figcaption hidden>Photo unavailable</figcaption></figure>
+  </div>
+ </section>
+</template>
 <script>
 'use strict';
 /* ======================================================================
@@ -223,11 +447,14 @@ function playerFits(x,y){
   walkable(Math.floor(x+a+.5),Math.floor(y+b+.5))));
 }
 function atDesk(){return bedroomChair&&player.pose==='sitting'&&player.anchor===bedroomChair}
-function sitAtDesk(){
- if(!bedroomChair||room!=='bedroom'||player.pose!=='standing'||!playerFits(player.x,player.y))return;
+function takeDeskSeat(){
+ if(!bedroomChair||room!=='bedroom'||player.pose!=='standing'||!playerFits(player.x,player.y))return false;
  player.returnPos={x:player.x,y:player.y};player.anchor=bedroomChair;
  Object.assign(player,bedroomChair.seat,{pose:'sitting',facing:1});
- closeModal();updateHint();
+ updateHint();return true;
+}
+function sitAtDesk(){
+ if(takeDeskSeat())closeModal();
 }
 function start(){
  closePanel('restart',false);resetBoards();Object.assign(appearance,APPEARANCE_DEFAULTS);stopTV(false);cancelSnack();player.facing=1;
@@ -460,6 +687,107 @@ function showModal(data,actions=[]){
  for(const [label,fn,secondary] of [...actions,...(state.ended?[]:[['Keep exploring',closeModal,true]])])panelAction(label,fn,secondary);
  ($('modal-actions').querySelector('button')||$('close-modal')).focus();
 }
+function useDeskComputer(){
+ if(bedroomChair&&!takeDeskSeat())return;
+ openDeskDesktop();
+}
+function drawPlushIcon(canvas,id){
+ const context=canvas.getContext('2d');
+ context.setTransform(2.6,0,0,2.6,40,73);
+ paintPlush(characterPainter(context),id);
+}
+function openDeskDesktop(appToFocus='archive'){
+ const panel=openPanel('computer','Desk computer');
+ $('modal-kicker').textContent='At the bedroom desk';
+ const desktop=document.createElement('div');desktop.className='computer-desktop';
+ const apps=[
+  {id:'archive',title:'11-month archive',description:'Read our first-year storybook',run:openElevenMonthArchive},
+  {id:'pairs',title:'Plush Pairs',description:'Match the six headboard plushies',run:openPlushPairs}
+ ];
+ for(const app of apps){
+  const tile=document.createElement('button');tile.type='button';tile.className='computer-app';
+  tile.innerHTML='<span class="computer-app-icon" aria-hidden="true"></span><strong></strong><small></small>';
+  const [icon,title,description]=tile.children;
+  if(app.id==='pairs'){
+   const preview=document.createElement('canvas');preview.width=80;preview.height=80;
+   icon.append(preview);drawPlushIcon(preview,'beady');
+  }else icon.textContent='▤';
+  title.textContent=app.title;description.textContent=app.description;
+  tile.addEventListener('click',app.run,{signal:panel.controller.signal});
+  desktop.append(tile);
+ }
+ const body=$('activity-body');body.scrollTop=0;body.append(desktop);
+ panelAction('Close computer',closeModal,true);
+ desktop.children[Math.max(0,apps.findIndex(app=>app.id===appToFocus))].focus();
+}
+function openElevenMonthArchive(){
+ const panel=openPanel('archive','11-month archive');
+ $('modal-kicker').textContent='From the desk computer';
+ const body=$('activity-body'),page=$('eleven-month-archive').content.cloneNode(true);
+ for(const img of page.querySelectorAll('img'))img.addEventListener('error',()=>{
+  img.hidden=true;img.nextElementSibling.hidden=false;
+ },{signal:panel.controller.signal,once:true});
+ // The one scroll pane is focusable so the full story can be read with keys.
+ body.tabIndex=0;body.setAttribute('role','region');body.setAttribute('aria-label','Our Storybook timeline');
+ panel.disposers.push(()=>{for(const attr of ['tabindex','role','aria-label'])body.removeAttribute(attr)});
+ body.append(page);body.scrollTop=0;
+ panelAction('Back to desktop',()=>openDeskDesktop('archive'),true);
+ body.focus({preventScroll:true});
+}
+function shuffledPlushDeck(){
+ const deck=[...BEDSILL_PLUSHIES,...BEDSILL_PLUSHIES];
+ for(let i=deck.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];
+ }
+ return deck;
+}
+function openPlushPairs(){
+ const panel=openPanel('pairs','Plush Pairs');
+ $('modal-kicker').textContent='From the desk computer';
+ const body=$('activity-body');
+ body.innerHTML='<p class="pairs-score"></p><div class="pairs-grid" role="group" aria-label="Plush cards"></div><p class="pairs-feedback" role="status"></p>';
+ body.scrollTop=0;
+ const [score,grid,feedback]=body.children;
+ const deck=shuffledPlushDeck();
+ let first=null,pairs=0,turnTimer=0;
+ panel.disposers.push(()=>clearTimeout(turnTimer));
+ const newRound=panelAction('Shuffle & restart',openPlushPairs);
+ panelAction('Back to desktop',()=>openDeskDesktop('pairs'),true);
+ function showFace(card,state){
+  const {button,plush,index}=card;
+  const [back,face]=button.children;
+  button.dataset.face=state;back.hidden=state!=='down';face.hidden=state==='down';
+  button.setAttribute('aria-disabled',String(state!=='down'));
+  const label=state==='down'?'Face down':`${plush.name}${state==='match'?', matched':''}`;
+  button.setAttribute('aria-label',`Card ${index+1} of ${deck.length}: ${label}`);
+ }
+ function updateScore(){score.textContent=`${pairs} of ${BEDSILL_PLUSHIES.length} pairs found`}
+ function flip(card){
+  if(turnTimer||card.button.dataset.face!=='down')return;
+  showFace(card,'up');
+  if(!first){first=card;feedback.textContent=`${card.plush.name}. Pick a second card.`;return}
+  const previous=first;first=null;
+  if(previous.plush.id===card.plush.id){
+   showFace(previous,'match');showFace(card,'match');pairs+=1;updateScore();
+   const finished=pairs===BEDSILL_PLUSHIES.length;
+   feedback.textContent=finished?'You found every pair! ♡':`Matched ${card.plush.name}. ${score.textContent}.`;
+   if(finished){newRound.textContent='Play again';newRound.focus()}
+   return;
+  }
+  feedback.textContent=`${previous.plush.name} and ${card.plush.name}. Try another pair.`;
+  turnTimer=setTimeout(()=>{showFace(previous,'down');showFace(card,'down');turnTimer=0},1000);
+ }
+ for(const [index,plush] of deck.entries()){
+  const button=document.createElement('button');button.type='button';button.className='pair-card';
+  button.innerHTML='<span class="pair-back" aria-hidden="true">♡</span><span class="pair-face" aria-hidden="true"><canvas width="80" height="80"></canvas><span class="pair-name"></span></span>';
+  const face=button.querySelector('.pair-face');
+  drawPlushIcon(face.firstElementChild,plush.id);face.lastElementChild.textContent=plush.name;
+  const card={button,plush,index};showFace(card,'down');
+  button.addEventListener('click',()=>flip(card),{signal:panel.controller.signal});
+  grid.append(button);
+ }
+ updateScore();feedback.textContent='Flip two cards to find a match.';grid.firstElementChild.focus();
+}
 function openWardrobe(instance){
  if(instance?.activity!=='wardrobe')return;
  const panel=openPanel('wardrobe','Choose a sweater');panel.instanceId=instance.id;
@@ -637,7 +965,10 @@ function interact(){
  case 3:action=()=>{closeModal();switchRoom()};break;
  }
  const actions=action?[[label,action]]:[];
- if(t==='L'&&bedroomChair&&near.instance===bedroomChair.instance)actions.push(['Sit at the desk',sitAtDesk]);
+ if(t==='L'&&near.instance?.id==='bedroom.desk.main'){
+  if(bedroomChair)actions.push(['Sit at the desk',sitAtDesk]);
+  actions.push(['Use computer',useDeskComputer]);
+ }
  if(near.token==='TV'){
   const playing=tvState.status==='playing'&&!tvVideo.paused,loading=tvState.status==='loading';
   actions.push([loading?'Cancel TV loading':playing?'Pause TV':tvState.status==='error'?'Retry TV':tvState.on?'Resume TV':'Play TV',()=>{tvState.status==='loading'||tvState.status==='playing'&&!tvVideo.paused?pauseTV():playTV();closeModal()}]);
@@ -1225,12 +1556,12 @@ function drawVanity(S){
 }
 
 const BEDSILL_PLUSHIES=[
- {id:'sponge',along:.088,depth:.19,size:.79},
- {id:'bear',along:.252,depth:.182,size:.88},
- {id:'bean',along:.408,depth:.251,size:.74},
- {id:'lion',along:.566,depth:.185,size:.84},
- {id:'penguin',along:.731,depth:.181,size:.84},
- {id:'beady',along:.900,depth:.181,size:.87}
+ {id:'sponge',name:'SpongeBob',along:.088,depth:.19,size:.79},
+ {id:'bear',name:'Blue-sweater bear',along:.252,depth:.182,size:.88},
+ {id:'bean',name:'Bean',along:.408,depth:.251,size:.74},
+ {id:'lion',name:'Lion',along:.566,depth:.185,size:.84},
+ {id:'penguin',name:'Penguin',along:.731,depth:.181,size:.84},
+ {id:'beady',name:'Beady',along:.900,depth:.181,size:.87}
 ];
 const plushArtCache=new Map();
 function paintPlush(P,id){
