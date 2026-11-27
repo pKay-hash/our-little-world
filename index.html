@@ -1562,6 +1562,7 @@ function wardrobeAsset(src){
  wardrobeAssets.set(src,asset);image.src=src;return asset;
 }
 // Body-local art units, feet at (0,0); head has its own camera-facing anchor.
+const STANDING_HEIGHT_SCALE=1.08;
 const CHARACTER_ANCHORS=Object.freeze({head:[0,-27],neck:[0,-21],shoulders:[0,-20],chest:[0,-14],cuffs:[[-8,-9],[8,-9]],hands:[[-8,-7],[8,-7]],hips:[0,-5],feet:[[-4,-1],[4,-1]]});
 function characterPainter(context,color=c=>c){
  const oval=(x,y,rx,ry,fill)=>{context.beginPath();context.ellipse(x,y,rx,ry,0,0,Math.PI*2);context.fillStyle=color(fill);context.fill()};
@@ -1633,7 +1634,8 @@ function drawCharacterHead(P,look,{facing=1,sleeping=false}={}){
 }
 function drawCharacterPreview(target,look){
  const c=target.getContext('2d');c.setTransform(1,0,0,1,0,0);c.clearRect(0,0,target.width,target.height);
- const scale=Math.min(target.width/30,target.height/46);c.translate(target.width/2,target.height*.88);c.scale(scale,scale);
+ const scale=Math.min(target.width/30,target.height/(46*STANDING_HEIGHT_SCALE));
+ c.translate(target.width/2,target.height*.88);c.scale(scale,scale*STANDING_HEIGHT_SCALE);
  const P=characterPainter(c);drawCharacterBody(P,look);c.translate(...CHARACTER_ANCHORS.head);drawCharacterHead(P,look);
 }
 // A bounded cache contains small transparent material-lit textures. The same
@@ -1652,17 +1654,18 @@ function worldCharacterArt(look,part,anchor,sleeping=false,deskSeated=false){
  if(part==='head')drawCharacterHead(P,look,{facing:player.facing||1,sleeping});else drawCharacterBody(P,look,deskSeated);
  const art={bitmap,bounds};if(characterArtCache.size>=24)characterArtCache.delete(characterArtCache.keys().next().value);characterArtCache.set(key,art);return art;
 }
-function drawCharacterSurface(anchor,part,size=1,sleeping=false,deskSeated=false){
+function drawCharacterSurface(anchor,part,size=1,sleeping=false,deskSeated=false,heightScale=1){
  const {bitmap,bounds:[x,y,w,h]}=worldCharacterArt(appearance,part,anchor,sleeping,deskSeated),scale=view.scale*size;
- const corners=[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(([dx,dy])=>scenePoint({x:anchor.x+dx*scale,y:anchor.y+dy*scale},anchor));
+ const verticalScale=scale*heightScale;
+ const corners=[[x,y],[x+w,y],[x+w,y+h],[x,y+h]].map(([dx,dy])=>scenePoint({x:anchor.x+dx*scale,y:anchor.y+dy*verticalScale},anchor));
  // Each texture is a real queued plane, clipped by furniture/BSP fragments.
- const paint=()=>ctx.drawImage(bitmap,anchor.x+x*scale,anchor.y+y*scale,w*scale,h*scale);
+ const paint=()=>ctx.drawImage(bitmap,anchor.x+x*scale,anchor.y+y*verticalScale,w*scale,h*verticalScale);
  if(!enqueue(towardCamera(corners,part==='head'?.009:.003),paint))paint();
 }
-function drawSnack(x,y,z){
+function drawSnack(x,y,z,heightScale){
  if(snack.phase!=='eating')return;
  const wave=reduceMotion?.5:(1-Math.cos(Math.min(1,snack.elapsed/snack.duration)*Math.PI*6))/2;
- const hand=project(x+.18,y+.04,z+14+wave*8);
+ const hand=project(x+.18,y+.04,z+(14+wave*8)*heightScale);
  ellipse(hand,2.2,2.6,appearance.skin);
  ellipse(scenePoint({x:hand.x+1.4*view.scale,y:hand.y-2*view.scale},hand),3,3,'#d5a573');
  for(const [dx,dy]of [[-1,-1],[1,0],[0,1]])ellipse(scenePoint({x:hand.x+(1.4+dx)*view.scale,y:hand.y+(-2+dy)*view.scale},hand),.45,.45,'#765047');
@@ -1698,10 +1701,10 @@ function drawPlayer(){
  }
  spriteAnchor=null;return;
  }
- const z=lift+bob;
- drawCharacterSurface(project(x,y,z),'body');
- drawCharacterSurface(project(x,y,z+27),'head');
- drawSnack(x,y,z);label('♥',x,y,z+44,'#e3b5a0',10);
+ const z=lift+bob,heightScale=sitting?1:STANDING_HEIGHT_SCALE;
+ drawCharacterSurface(project(x,y,z),'body',1,false,false,heightScale);
+ drawCharacterSurface(project(x,y,z-CHARACTER_ANCHORS.head[1]*heightScale),'head',1,false,false,heightScale);
+ drawSnack(x,y,z,heightScale);label('♥',x,y,z+44*heightScale,'#e3b5a0',10);
  spriteAnchor=null;
 }
 function resize(){
